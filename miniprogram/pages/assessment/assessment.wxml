@@ -1,112 +1,136 @@
-<view class="container">
-  <!-- 评估类型选择 -->
-  <view class="card" wx:if="{{!assessmentStarted}}">
-    <text class="title">选择评估类型</text>
-    <view class="assessment-types">
-      <view class="type-card {{selectedType === 'psychological' ? 'active' : ''}}" 
-            bindtap="selectType" data-type="psychological">
-        <text class="type-icon">🧠</text>
-        <text class="type-title">心理健康评估</text>
-        <text class="type-desc">评估情绪状态、压力水平、睡眠质量等</text>
+<view class="assessment-container">
+  <!-- 未开始评估 - 选择类型 -->
+  <view wx:if="{{!assessmentStarted && !showResult}}" class="type-selection">
+    <view class="welcome-text">
+      <text class="title">健康评估</text>
+      <text class="subtitle">选择您想进行的评估类型</text>
+    </view>
+
+    <view class="type-cards">
+      <view 
+        class="type-card {{selectedType === 'psychological' ? 'active' : ''}}"
+        bindtap="selectType"
+        data-type="psychological">
+        <view class="card-icon">🧠</view>
+        <text class="card-title">心理评估</text>
+        <text class="card-desc">PHQ-9 抑郁量表 + GAD-7 焦虑量表</text>
       </view>
-      <view class="type-card {{selectedType === 'metabolic' ? 'active' : ''}}" 
-            bindtap="selectType" data-type="metabolic">
-        <text class="type-icon">💪</text>
-        <text class="type-title">代谢健康评估</text>
-        <text class="type-desc">评估体重、血糖、血压、运动等指标</text>
-      </view>
-      <view class="type-card {{selectedType === 'comprehensive' ? 'active' : ''}}" 
-            bindtap="selectType" data-type="comprehensive">
-        <text class="type-icon">📋</text>
-        <text class="type-title">综合健康评估</text>
-        <text class="type-desc">全面评估心理和代谢健康状况</text>
+
+      <view 
+        class="type-card {{selectedType === 'lifestyle' ? 'active' : ''}}"
+        bindtap="selectType"
+        data-type="lifestyle">
+        <view class="card-icon">🏃</view>
+        <text class="card-title">生活方式评估</text>
+        <text class="card-desc">饮食、运动、睡眠习惯评估</text>
       </view>
     </view>
-    <button class="btn-primary" bindtap="startAssessment">开始评估</button>
+
+    <button class="start-btn" bindtap="startAssessment">开始评估</button>
   </view>
 
-  <!-- 问卷评估 -->
-  <view class="card" wx:if="{{assessmentStarted && !showResult}}">
-    <view class="progress-bar">
-      <view class="progress" style="width: {{progress}}"></view>
+  <!-- 评估进行中 -->
+  <view wx:if="{{assessmentStarted && !showResult}}" class="assessment-progress">
+    <!-- 顶部进度条 -->
+    <view class="progress-section">
+      <view class="progress-info">
+        <text class="progress-text">进度: {{answeredQuestions}}/{{totalQuestions}}</text>
+        <text class="exit-text" bindtap="exitAssessment">保存并退出</text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progress}}"></view>
+      </view>
     </view>
-    <text class="progress-text">{{currentIndex + 1}} / {{questions.length}}</text>
 
+    <!-- 当前section标题 -->
+    <view class="section-header">
+      <text wx:if="{{currentSection === 'phq9'}}">PHQ-9 抑郁症状评估</text>
+      <text wx:if="{{currentSection === 'gad7'}}">GAD-7 焦虑症状评估</text>
+      <text wx:if="{{currentSection === 'lifestyle'}}">生活方式评估</text>
+    </view>
+
+    <!-- 问题卡片 -->
     <view class="question-card">
-      <text class="question-title">{{currentQuestion.question}}</text>
-      <view class="options">
-        <view class="option-item {{selectedOption === index ? 'selected' : ''}}" 
-              wx:for="{{currentQuestion.options}}" 
-              wx:key="index"
-              bindtap="selectOption" 
-              data-index="{{index}}">
+      <view class="question-number">第 {{currentIndex + 1}} 题</view>
+      <view class="question-text">{{currentQuestion.text}}</view>
+
+      <view class="options-list">
+        <view 
+          wx:for="{{currentQuestion.options}}" 
+          wx:key="index"
+          class="option-item {{selectedOption === index ? 'selected' : ''}}"
+          bindtap="selectOption"
+          data-index="{{index}}">
+          <view class="option-radio">
+            <view wx:if="{{selectedOption === index}}" class="option-radio-checked"></view>
+          </view>
           <text class="option-text">{{item}}</text>
         </view>
       </view>
     </view>
 
-    <view class="button-group">
-      <button class="btn-secondary" wx:if="{{currentIndex > 0}}" bindtap="previousQuestion">上一题</button>
-      <button class="btn-primary" bindtap="nextQuestion">{{currentIndex === questions.length - 1 ? '完成' : '下一题'}}</button>
+    <!-- 导航按钮 -->
+    <view class="nav-buttons">
+      <button 
+        wx:if="{{currentIndex > 0 || currentSection !== 'phq9'}}"
+        class="nav-btn prev-btn" 
+        bindtap="previousQuestion">
+        上一题
+      </button>
+      <button 
+        class="nav-btn next-btn" 
+        bindtap="nextQuestion"
+        disabled="{{selectedOption === -1}}">
+        {{currentIndex === getSectionLength(currentSection) - 1 ? '下一部分' : '下一题'}}
+      </button>
     </view>
   </view>
 
   <!-- 评估结果 -->
-  <view class="card" wx:if="{{showResult}}">
+  <view wx:if="{{showResult}}" class="result-container">
     <view class="result-header">
-      <text class="result-icon">✅</text>
-      <text class="result-title">评估完成</text>
+      <text class="result-title">评估结果</text>
     </view>
 
-    <view class="result-card">
-      <text class="result-label">综合评分</text>
-      <text class="result-score">{{totalScore}}</text>
-      <text class="result-level">{{scoreLevel}}</text>
-    </view>
+    <!-- 心理评估结果 -->
+    <view wx:if="{{phq9Score !== undefined}}" class="result-section">
+      <view class="score-card">
+        <view class="score-item">
+          <text class="score-label">抑郁评分 (PHQ-9)</text>
+          <text class="score-value">{{phq9Score}} 分</text>
+          <text class="score-level">{{phq9Level}}</text>
+        </view>
+        <view class="score-item">
+          <text class="score-label">焦虑评分 (GAD-7)</text>
+          <text class="score-value">{{gad7Score}} 分</text>
+          <text class="score-level">{{gad7Level}}</text>
+        </view>
+      </view>
 
-    <view class="result-details" wx:if="{{selectedType === 'comprehensive' || selectedType === 'psychological'}}">
-      <text class="detail-title">心理健康</text>
-      <view class="detail-item">
-        <text class="detail-label">情绪状态</text>
-        <text class="detail-value">{{psychologicalDetails.emotion}}</text>
-      </view>
-      <view class="detail-item">
-        <text class="detail-label">压力水平</text>
-        <text class="detail-value">{{psychologicalDetails.stress}}</text>
-      </view>
-      <view class="detail-item">
-        <text class="detail-label">睡眠质量</text>
-        <text class="detail-value">{{psychologicalDetails.sleep}}</text>
-      </view>
-    </view>
-
-    <view class="result-details" wx:if="{{selectedType === 'comprehensive' || selectedType === 'metabolic'}}">
-      <text class="detail-title">代谢健康</text>
-      <view class="detail-item">
-        <text class="detail-label">体重指数</text>
-        <text class="detail-value">{{metabolicDetails.bmi}}</text>
-      </view>
-      <view class="detail-item">
-        <text class="detail-label">运动水平</text>
-        <text class="detail-value">{{metabolicDetails.exercise}}</text>
-      </view>
-      <view class="detail-item">
-        <text class="detail-label">饮食习惯</text>
-        <text class="detail-value">{{metabolicDetails.diet}}</text>
+      <view class="overall-score">
+        <text class="overall-label">综合健康评分</text>
+        <text class="overall-value">{{overallScore}}</text>
+        <view class="score-ring">
+          <text class="ring-text">分</text>
+        </view>
       </view>
     </view>
 
+    <!-- 建议列表 -->
     <view class="advice-section">
-      <text class="advice-title">个性化建议</text>
-      <view class="advice-item" wx:for="{{adviceList}}" wx:key="index">
-        <text class="advice-number">{{index + 1}}.</text>
-        <text class="advice-content">{{item}}</text>
+      <text class="advice-title">💡 健康建议</text>
+      <view class="advice-list">
+        <view wx:for="{{adviceList}}" wx:key="index" class="advice-item">
+          <text class="advice-icon">✓</text>
+          <text class="advice-text">{{item}}</text>
+        </view>
       </view>
     </view>
 
-    <view class="button-group">
-      <button class="btn-secondary" bindtap="viewHistory">查看历史</button>
-      <button class="btn-primary" bindtap="restart">重新评估</button>
+    <!-- 操作按钮 -->
+    <view class="result-actions">
+      <button class="action-btn primary" bindtap="viewHistory">查看AI建议</button>
+      <button class="action-btn secondary" bindtap="restart">重新评估</button>
     </view>
   </view>
 </view>

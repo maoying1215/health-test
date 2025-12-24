@@ -4,7 +4,9 @@
     "pages/home/home",
     "pages/assessment/assessment",
     "pages/ai-chat/ai-chat",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/daily-check/daily-check",
+    "pages/health-knowledge/health-knowledge"
   ],
   "window": {
     "backgroundTextStyle": "light",

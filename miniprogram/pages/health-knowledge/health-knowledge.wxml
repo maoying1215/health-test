@@ -1,0 +1,130 @@
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrapper">
+      <text class="search-icon">🔍</text>
+      <input 
+        class="search-input" 
+        placeholder="搜索健康知识" 
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+      />
+      <text class="clear-icon" wx:if="{{searchKeyword}}" bindtap="clearSearch">×</text>
+    </view>
+  </view>
+
+  <!-- 分类标签 -->
+  <scroll-view class="category-scroll" scroll-x enable-flex>
+    <view class="category-list">
+      <view 
+        wx:for="{{categories}}" 
+        wx:key="id"
+        class="category-item {{currentCategory === item.id ? 'active' : ''}}"
+        bindtap="switchCategory"
+        data-id="{{item.id}}"
+      >
+        <text class="category-icon">{{item.icon}}</text>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 文章列表 -->
+  <view class="article-list">
+    <view class="list-header">
+      <text class="list-title">健康文章</text>
+      <text class="list-count">共{{displayArticles.length}}篇</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{displayArticles.length === 0}}">
+      <text class="empty-icon">📭</text>
+      <text class="empty-text">暂无相关文章</text>
+    </view>
+
+    <!-- 文章卡片 -->
+    <view 
+      class="article-card" 
+      wx:for="{{displayArticles}}" 
+      wx:key="id"
+      bindtap="viewArticle"
+      data-id="{{item.id}}"
+    >
+      <view class="article-content">
+        <view class="article-header">
+          <text class="article-title">{{item.title}}</text>
+          <text class="new-badge" wx:if="{{item.isNew}}">新</text>
+        </view>
+        <text class="article-summary">{{item.summary}}</text>
+        <view class="article-meta">
+          <view class="meta-left">
+            <text class="meta-item">📖 {{item.readTime}}</text>
+            <text class="meta-item">👁️ {{item.views}}</text>
+          </view>
+          <view class="favorite-btn" catchtap="toggleFavorite" data-id="{{item.id}}">
+            <text class="favorite-icon">{{favoriteIds.indexOf(item.id) > -1 ? '❤️' : '🤍'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 文章详情弹窗 -->
+  <view class="detail-overlay" wx:if="{{showDetail}}" catchtouchmove="preventTouchMove">
+    <view class="detail-container">
+      <!-- 详情头部 -->
+      <view class="detail-header">
+        <text class="back-btn" bindtap="closeDetail">← 返回</text>
+        <view class="detail-actions">
+          <text 
+            class="action-btn" 
+            catchtap="toggleFavorite" 
+            data-id="{{currentArticle.id}}"
+          >{{favoriteIds.indexOf(currentArticle.id) > -1 ? '❤️' : '🤍'}}</text>
+          <text class="action-btn" catchtap="shareArticle">📤</text>
+        </view>
+      </view>
+
+      <!-- 详情内容 -->
+      <scroll-view class="detail-scroll" scroll-y>
+        <view class="detail-content">
+          <text class="detail-title">{{currentArticle.title}}</text>
+          <view class="detail-meta">
+            <text class="meta-tag">{{currentArticle.readTime}}阅读</text>
+            <text class="meta-tag">{{currentArticle.views}}人已读</text>
+          </view>
+
+          <!-- 文章正文 -->
+          <view class="article-body">
+            <block wx:for="{{currentArticle.content}}" wx:key="index">
+              <!-- 普通文本 -->
+              <text wx:if="{{item.type === 'text'}}" class="body-text">{{item.content}}</text>
+              
+              <!-- 小标题 -->
+              <text wx:if="{{item.type === 'subtitle'}}" class="body-subtitle">{{item.content}}</text>
+              
+              <!-- 列表 -->
+              <view wx:if="{{item.type === 'list'}}" class="body-list">
+                <view class="list-item" wx:for="{{item.content}}" wx:for-item="listItem" wx:key="*this">
+                  <text class="list-dot">•</text>
+                  <text class="list-text">{{listItem}}</text>
+                </view>
+              </view>
+              
+              <!-- 提示 -->
+              <view wx:if="{{item.type === 'tip'}}" class="body-tip">
+                <text class="tip-icon">💡</text>
+                <text class="tip-text">{{item.content}}</text>
+              </view>
+            </block>
+          </view>
+
+          <!-- 底部提示 -->
+          <view class="detail-footer">
+            <text class="footer-text">以上内容仅供参考，如有健康问题请咨询专业医生</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

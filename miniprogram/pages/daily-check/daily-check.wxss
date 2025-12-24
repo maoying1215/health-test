@@ -1,0 +1,415 @@
+/* 容器 */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #E8F5E9 0%, #F5F5F5 100%);
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+/* 日期卡片 */
+.date-card {
+  background: linear-gradient(135deg, #94b088 0%, #a0d6e4 100%);
+  border-radius: 24rpx;
+  padding: 40rpx;
+  color: white;
+  margin-bottom: 30rpx;
+  box-shadow: 0 8rpx 30rpx rgba(148, 176, 136, 0.3);
+}
+
+.date-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.date-main {
+  display: flex;
+  align-items: baseline;
+  gap: 20rpx;
+}
+
+.date-text {
+  font-size: 48rpx;
+  font-weight: bold;
+}
+
+.week-text {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+.streak-info {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10rpx 20rpx;
+  border-radius: 30rpx;
+}
+
+.streak-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.streak-text {
+  font-size: 24rpx;
+}
+
+.date-subtitle {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+.check-count {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+/* 打卡列表区域 */
+.check-list {
+  background: white;
+  border-radius: 24rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.title-text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #94b088 0%, #a0d6e4 100%);
+  padding: 12rpx 24rpx;
+  border-radius: 30rpx;
+  color: white;
+}
+
+.add-icon {
+  font-size: 32rpx;
+  margin-right: 8rpx;
+  font-weight: bold;
+}
+
+.add-text {
+  font-size: 26rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 0;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 30rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.empty-hint {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 打卡记录项 */
+.check-items {
+  margin-bottom: 30rpx;
+}
+
+.check-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx;
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  margin-bottom: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.check-item:active {
+  transform: scale(0.98);
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.item-icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 6rpx;
+}
+
+.item-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.item-right {
+  display: flex;
+  align-items: center;
+}
+
+.delete-btn {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  font-size: 36rpx;
+  border-radius: 50%;
+}
+
+.delete-btn:active {
+  background: #f0f0f0;
+  color: #ff6b6b;
+}
+
+/* 鼓励语区域 */
+.encourage-section {
+  border-top: 1rpx solid #f0f0f0;
+  padding-top: 24rpx;
+}
+
+.encourage-card {
+  display: flex;
+  align-items: flex-start;
+  padding: 20rpx;
+  background: linear-gradient(135deg, #fff9e6 0%, #fff5f5 100%);
+  border-radius: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.encourage-card:last-child {
+  margin-bottom: 0;
+}
+
+.encourage-icon {
+  font-size: 28rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.encourage-text {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* 底部提示 */
+.bottom-tips {
+  text-align: center;
+  padding: 20rpx 0 40rpx;
+}
+
+.tips-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* ==================== 选择弹窗样式 ==================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-container {
+  width: 100%;
+  max-height: 80vh;
+  background: white;
+  border-radius: 32rpx 32rpx 0 0;
+  animation: slideUp 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 40rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-close {
+  font-size: 48rpx;
+  color: #999;
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-body {
+  padding: 20rpx 40rpx;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.option-group {
+  margin-bottom: 30rpx;
+}
+
+.group-title {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.option-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 28rpx;
+  background: #f5f5f5;
+  border-radius: 16rpx;
+  border: 2rpx solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.option-item.selected {
+  background: #e8f5e9;
+  border-color: #94b088;
+}
+
+.option-item.disabled {
+  opacity: 0.6;
+  background: #f0f0f0;
+}
+
+.option-icon {
+  font-size: 36rpx;
+  margin-right: 12rpx;
+}
+
+.option-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.check-mark {
+  margin-left: 12rpx;
+  color: #94b088;
+  font-weight: bold;
+  font-size: 28rpx;
+}
+
+.checked-mark {
+  margin-left: 12rpx;
+  font-size: 22rpx;
+  color: #999;
+  background: #e0e0e0;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.modal-footer {
+  display: flex;
+  padding: 30rpx 40rpx 60rpx;
+  gap: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.cancel-btn, .confirm-btn {
+  flex: 1;
+  height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.cancel-btn {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.cancel-btn::after {
+  border: none;
+}
+
+.confirm-btn {
+  background: linear-gradient(135deg, #94b088 0%, #a0d6e4 100%);
+  color: white;
+  font-weight: 500;
+}
+
+.confirm-btn::after {
+  border: none;
+}
+
+.confirm-btn:active {
+  opacity: 0.9;
+}

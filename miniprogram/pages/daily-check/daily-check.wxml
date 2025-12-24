@@ -1,0 +1,122 @@
+<view class="container">
+  <!-- 顶部日期卡片 -->
+  <view class="date-card">
+    <view class="date-header">
+      <view class="date-main">
+        <text class="date-text">{{currentDate}}</text>
+        <text class="week-text">{{weekDay}}</text>
+      </view>
+      <view class="streak-info" wx:if="{{streakDays > 0}}">
+        <text class="streak-icon">🔥</text>
+        <text class="streak-text">连续{{streakDays}}天</text>
+      </view>
+    </view>
+    <view class="date-subtitle">
+      <text>今日已完成 </text>
+      <text class="check-count">{{todayCheckCount}}</text>
+      <text> 项打卡</text>
+    </view>
+  </view>
+
+  <!-- 打卡记录列表 -->
+  <view class="check-list">
+    <view class="section-title">
+      <text class="title-text">今日打卡</text>
+      <view class="add-btn" bindtap="openSelectModal">
+        <text class="add-icon">+</text>
+        <text class="add-text">添加</text>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{checkedItems.length === 0}}">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">今天还没有打卡记录</text>
+      <text class="empty-hint">点击上方"添加"按钮开始打卡吧！</text>
+    </view>
+
+    <!-- 打卡记录 -->
+    <view class="check-items" wx:if="{{checkedItems.length > 0}}">
+      <view class="check-item" wx:for="{{checkedItems}}" wx:key="id">
+        <view class="item-left">
+          <text class="item-icon">{{item.icon}}</text>
+          <view class="item-info">
+            <text class="item-name">我已完成「{{item.name}}」</text>
+            <text class="item-time">{{item.time}}</text>
+          </view>
+        </view>
+        <view class="item-right">
+          <text class="delete-btn" catchtap="deleteCheckItem" data-id="{{item.id}}">×</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 鼓励语展示 -->
+    <view class="encourage-section" wx:if="{{checkedItems.length > 0}}">
+      <view class="encourage-card" wx:for="{{checkedItems}}" wx:key="id">
+        <text class="encourage-icon">💬</text>
+        <text class="encourage-text">{{item.encourage}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="bottom-tips">
+    <text class="tips-text">坚持每日打卡，养成健康好习惯</text>
+  </view>
+
+  <!-- 选择弹窗 -->
+  <view class="modal-overlay" wx:if="{{showSelectModal}}" catchtouchmove="preventTouchMove">
+    <view class="modal-container">
+      <view class="modal-header">
+        <text class="modal-title">选择已完成的项目</text>
+        <text class="modal-close" bindtap="closeSelectModal">×</text>
+      </view>
+      
+      <view class="modal-body">
+        <!-- 评估任务 -->
+        <view class="option-group">
+          <text class="group-title">评估任务</text>
+          <view class="option-list">
+            <view 
+              wx:for="{{taskOptions}}" 
+              wx:key="id"
+              class="option-item {{item.isSelected ? 'selected' : ''}} {{item.isChecked ? 'disabled' : ''}}" 
+              bindtap="toggleOption"
+              data-id="{{item.id}}"
+            >
+              <text class="option-icon">{{item.icon}}</text>
+              <text class="option-name">{{item.name}}</text>
+              <view class="check-mark" wx:if="{{item.isSelected}}">✓</view>
+              <view class="checked-mark" wx:if="{{item.isChecked}}">已打卡</view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 放松活动 -->
+        <view class="option-group">
+          <text class="group-title">放松活动</text>
+          <view class="option-list">
+            <view 
+              wx:for="{{activityOptions}}" 
+              wx:key="id"
+              class="option-item {{item.isSelected ? 'selected' : ''}} {{item.isChecked ? 'disabled' : ''}}" 
+              bindtap="toggleOption"
+              data-id="{{item.id}}"
+            >
+              <text class="option-icon">{{item.icon}}</text>
+              <text class="option-name">{{item.name}}</text>
+              <view class="check-mark" wx:if="{{item.isSelected}}">✓</view>
+              <view class="checked-mark" wx:if="{{item.isChecked}}">已打卡</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="modal-footer">
+        <button class="cancel-btn" bindtap="closeSelectModal">取消</button>
+        <button class="confirm-btn" bindtap="confirmSelect">确认打卡</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,5 +1,6 @@
 App({
   globalData: {
+    assessmentType: null,
     userInfo: null,
     assessmentHistory: [],
     healthData: []

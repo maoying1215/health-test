@@ -1,20 +1,26 @@
 .welcome-card {
   background: linear-gradient(135deg,  #94b088 0%, #a0d6e4 100%);
   color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
 }
 
 .welcome-card .title {
   color: white;
   font-size: 40rpx;
+  display: block;
 }
 
 .welcome-card .subtitle {
   color: rgba(255, 255, 255, 0.9);
+  display: block;
 }
 
 .quick-assessment {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  gap: 20rpx;
   margin-top: 20rpx;
 }
 
@@ -23,26 +29,42 @@
   flex-direction: column;
   align-items: center;
   flex: 1;
-  padding: 20rpx;
+  padding: 30rpx 20rpx;
+  background: #f8f8f8;
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.assessment-item:active {
+  transform: scale(0.98);
+  background: #f0f0f0;
 }
 
 .icon-wrapper {
-  width: 100rpx;
-  height: 100rpx;
+  width: 120rpx;
+  height: 120rpx;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 15rpx;
+  margin-bottom: 20rpx;
 }
 
 .icon {
-  font-size: 50rpx;
+  font-size: 60rpx;
 }
 
 .item-text {
-  font-size: 26rpx;
-  color: #666;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+}
+
+.item-desc {
+  font-size: 22rpx;
+  color: #999;
+  text-align: center;
 }
 
 .health-overview {
@@ -140,3 +162,170 @@
   font-size: 24rpx;
   color: #666;
 }
+
+/* ==================== 使用天数弹窗样式 ==================== */
+
+/* 弹窗遮罩层 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 弹窗容器 */
+.modal-container {
+  width: 600rpx;
+  background: #ffffff;
+  border-radius: 32rpx;
+  overflow: hidden;
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.3);
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 弹窗顶部装饰 */
+.modal-header {
+  height: 20rpx;
+  background: linear-gradient(90deg, #94b088, #a0d6e4);
+}
+
+.header-decoration {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0.3) 0%, 
+    rgba(255,255,255,0) 50%, 
+    rgba(255,255,255,0.3) 100%
+  );
+}
+
+/* 弹窗主体内容 */
+.modal-body {
+  padding: 60rpx 40rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 400rpx;
+}
+
+/* 欢迎图标 */
+.welcome-icon {
+  font-size: 80rpx;
+  margin-bottom: 30rpx;
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10rpx);
+  }
+}
+
+/* 欢迎标题 */
+.welcome-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 40rpx;
+}
+
+/* 使用天数信息 */
+.days-info {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 30rpx;
+}
+
+.days-prefix {
+  font-size: 30rpx;
+  color: #666;
+}
+
+.days-number {
+  font-size: 72rpx;
+  font-weight: bold;
+  color: #94b088;
+  margin: 0 10rpx;
+  font-family: 'DIN', 'Helvetica Neue', sans-serif;
+}
+
+.days-suffix {
+  font-size: 30rpx;
+  color: #666;
+}
+
+/* 鼓励文案 */
+.encourage-text {
+  font-size: 26rpx;
+  color: #999;
+  text-align: center;
+  line-height: 1.6;
+  padding: 0 20rpx;
+  min-height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 弹窗底部按钮区域 */
+.modal-footer {
+  padding: 20rpx 40rpx 50rpx;
+}
+
+/* 确认按钮 */
+.confirm-btn {
+  width: 100%;
+  height: 90rpx;
+  background: linear-gradient(135deg, #94b088 0%, #a0d6e4 100%);
+  color: white;
+  font-size: 32rpx;
+  font-weight: 500;
+  border-radius: 45rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: 0 8rpx 20rpx rgba(148, 176, 136, 0.4);
+  transition: all 0.3s ease;
+}
+
+.confirm-btn::after {
+  border: none;
+}
+
+.confirm-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 10rpx rgba(148, 176, 136, 0.4);
+}
+

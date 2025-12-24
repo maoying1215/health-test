@@ -14,18 +14,14 @@
           <text class="icon">🧠</text>
         </view>
         <text class="item-text">心理评估</text>
+        <text class="item-desc">PHQ-9 + GAD-7</text>
       </view>
-      <view class="assessment-item" bindtap="goToAssessment" data-type="metabolic">
+      <view class="assessment-item" bindtap="goToAssessment" data-type="lifestyle">
         <view class="icon-wrapper" style="background: #E5F5FF;">
-          <text class="icon">💪</text>
+          <text class="icon">🏃</text>
         </view>
-        <text class="item-text">代谢评估</text>
-      </view>
-      <view class="assessment-item" bindtap="goToAssessment" data-type="comprehensive">
-        <view class="icon-wrapper" style="background: #E5FFE5;">
-          <text class="icon">📋</text>
-        </view>
-        <text class="item-text">综合评估</text>
+        <text class="item-text">生活方式评估</text>
+        <text class="item-desc">饮食运动睡眠</text>
       </view>
     </view>
   </view>
@@ -67,21 +63,48 @@
   <view class="card">
     <text class="title">更多功能</text>
     <view class="function-grid">
+      <view class="function-item" bindtap="goToDailyCheck">
+        <text class="function-icon">✅</text>
+        <text class="function-text">每日打卡</text>
+      </view>
       <view class="function-item" bindtap="goToHealthData">
         <text class="function-icon">📊</text>
         <text class="function-text">健康数据</text>
-      </view>
-      <view class="function-item" bindtap="goToCommunity">
-        <text class="function-icon">👥</text>
-        <text class="function-text">健康社区</text>
       </view>
       <view class="function-item" bindtap="goToProfile">
         <text class="function-icon">⚙️</text>
         <text class="function-text">个人设置</text>
       </view>
-      <view class="function-item" bindtap="showComingSoon">
+      <view class="function-item" bindtap="goToHealthKnowledge">
         <text class="function-icon">📚</text>
         <text class="function-text">健康知识</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 使用天数弹窗 -->
+  <view class="modal-overlay" wx:if="{{showDaysModal}}" catchtouchmove="preventTouchMove">
+    <view class="modal-container">
+      <!-- 装饰性顶部 -->
+      <view class="modal-header">
+        <view class="header-decoration"></view>
+      </view>
+      
+      <!-- 弹窗内容 -->
+      <view class="modal-body">
+        <view class="welcome-icon">🌱</view>
+        <view class="welcome-title">欢迎回来</view>
+        <view class="days-info">
+          <text class="days-prefix">这是您使用小程序的第</text>
+          <text class="days-number">{{useDays}}</text>
+          <text class="days-suffix">天</text>
+        </view>
+        <view class="encourage-text">{{encourageText}}</view>
+      </view>
+      
+      <!-- 确认按钮 -->
+      <view class="modal-footer">
+        <button class="confirm-btn" bindtap="closeModal">确认</button>
       </view>
     </view>
   </view>

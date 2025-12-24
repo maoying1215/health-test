@@ -1,0 +1,142 @@
+.welcome-card {
+  background: linear-gradient(135deg,  #94b088 0%, #a0d6e4 100%);
+  color: white;
+}
+
+.welcome-card .title {
+  color: white;
+  font-size: 40rpx;
+}
+
+.welcome-card .subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.quick-assessment {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+
+.assessment-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: 20rpx;
+}
+
+.icon-wrapper {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15rpx;
+}
+
+.icon {
+  font-size: 50rpx;
+}
+
+.item-text {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.health-overview {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+
+.overview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: 20rpx;
+  background: #f8f8f8;
+  border-radius: 12rpx;
+  margin: 0 10rpx;
+}
+
+.overview-item:first-child {
+  margin-left: 0;
+}
+
+.overview-item:last-child {
+  margin-right: 0;
+}
+
+.overview-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 10rpx;
+}
+
+.overview-value {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5rpx;
+}
+
+.overview-level {
+  font-size: 22rpx;
+  color: #BFDC9F;
+}
+
+.advice-list {
+  margin-top: 20rpx;
+}
+
+.advice-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.advice-item:last-child {
+  border-bottom: none;
+}
+
+.advice-icon {
+  font-size: 32rpx;
+  margin-right: 15rpx;
+}
+
+.advice-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+.function-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+
+.function-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx;
+  background: #f8f8f8;
+  border-radius: 12rpx;
+}
+
+.function-icon {
+  font-size: 48rpx;
+  margin-bottom: 10rpx;
+}
+
+.function-text {
+  font-size: 24rpx;
+  color: #666;
+}

@@ -1,0 +1,88 @@
+<view class="container">
+  <!-- 欢迎卡片 -->
+  <view class="card welcome-card">
+    <text class="title">您好,{{userName || '用户'}}</text>
+    <text class="subtitle">今天感觉怎么样?</text>
+  </view>
+
+  <!-- 快速评估 -->
+  <view class="card">
+    <text class="title">快速评估</text>
+    <view class="quick-assessment">
+      <view class="assessment-item" bindtap="goToAssessment" data-type="psychological">
+        <view class="icon-wrapper" style="background: #FFE5E5;">
+          <text class="icon">🧠</text>
+        </view>
+        <text class="item-text">心理评估</text>
+      </view>
+      <view class="assessment-item" bindtap="goToAssessment" data-type="metabolic">
+        <view class="icon-wrapper" style="background: #E5F5FF;">
+          <text class="icon">💪</text>
+        </view>
+        <text class="item-text">代谢评估</text>
+      </view>
+      <view class="assessment-item" bindtap="goToAssessment" data-type="comprehensive">
+        <view class="icon-wrapper" style="background: #E5FFE5;">
+          <text class="icon">📋</text>
+        </view>
+        <text class="item-text">综合评估</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 健康概览 -->
+  <view class="card" wx:if="{{hasHealthData}}">
+    <text class="title">健康概览</text>
+    <view class="health-overview">
+      <view class="overview-item">
+        <text class="overview-label">心理评分</text>
+        <text class="overview-value">{{psychologicalScore}}</text>
+        <text class="overview-level">{{psychologicalLevel}}</text>
+      </view>
+      <view class="overview-item">
+        <text class="overview-label">健康指数</text>
+        <text class="overview-value">{{bmi}}</text>
+        <text class="overview-level">{{bmiLevel}}</text>
+      </view>
+      <view class="overview-item">
+        <text class="overview-label">风险概率</text>
+        <text class="overview-value">{{bloodSugar}}</text>
+        <text class="overview-level">{{bloodSugarLevel}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 今日建议 -->
+  <view class="card" wx:if="{{todayAdvice.length > 0}}">
+    <text class="title">今日建议</text>
+    <view class="advice-list">
+      <view class="advice-item" wx:for="{{todayAdvice}}" wx:key="index">
+        <text class="advice-icon">💡</text>
+        <text class="advice-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="card">
+    <text class="title">更多功能</text>
+    <view class="function-grid">
+      <view class="function-item" bindtap="goToHealthData">
+        <text class="function-icon">📊</text>
+        <text class="function-text">健康数据</text>
+      </view>
+      <view class="function-item" bindtap="goToCommunity">
+        <text class="function-icon">👥</text>
+        <text class="function-text">健康社区</text>
+      </view>
+      <view class="function-item" bindtap="goToProfile">
+        <text class="function-icon">⚙️</text>
+        <text class="function-text">个人设置</text>
+      </view>
+      <view class="function-item" bindtap="showComingSoon">
+        <text class="function-icon">📚</text>
+        <text class="function-text">健康知识</text>
+      </view>
+    </view>
+  </view>
+</view>

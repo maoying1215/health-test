@@ -1,0 +1,14 @@
+<view class="loading-container">
+  <view class="logo-section">
+    <view class="logo-text">健康</view>
+    <text class="app-name">心理-代谢健康管理</text>
+    <text class="app-slogan">科学管理 健康生活</text>
+  </view>
+  
+  <view class="loading-progress">
+    <view class="progress-bar">
+      <view class="progress-fill" style="{{progressStyle}}"></view>
+    </view>
+    <text class="loading-text">{{loadingText}}</text>
+  </view>
+</view>

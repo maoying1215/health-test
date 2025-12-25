@@ -16,11 +16,18 @@
         <text class="item-text">心理评估</text>
         <text class="item-desc">PHQ-9 + GAD-7</text>
       </view>
+      <view class="assessment-item" bindtap="goToAssessment" data-type="physiological">
+        <view class="icon-wrapper" style="background: #E8F5E9;">
+          <text class="icon">🩺</text>
+        </view>
+        <text class="item-text">生理指标</text>
+        <text class="item-desc">代谢综合征筛查</text>
+      </view>
       <view class="assessment-item" bindtap="goToAssessment" data-type="lifestyle">
         <view class="icon-wrapper" style="background: #E5F5FF;">
           <text class="icon">🏃</text>
         </view>
-        <text class="item-text">生活方式评估</text>
+        <text class="item-text">生活方式</text>
         <text class="item-desc">饮食运动睡眠</text>
       </view>
     </view>

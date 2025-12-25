@@ -6,7 +6,8 @@
     "pages/ai-chat/ai-chat",
     "pages/profile/profile",
     "pages/daily-check/daily-check",
-    "pages/health-knowledge/health-knowledge"
+    "pages/health-knowledge/health-knowledge",
+    "pages/user-info/user-info"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -2,6 +2,7 @@
   min-height: 100vh;
   background: #f5f7fa;
   padding: 20rpx;
+  padding-bottom: 40rpx;
 }
 
 /* 类型选择页面 */
@@ -241,7 +242,222 @@
   color: #9ca3af;
 }
 
-/* 结果页面 */
+/* ==================== 生理指标表单样式 ==================== */
+.physiological-form {
+  padding: 20rpx;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 40rpx;
+  padding: 30rpx;
+  background: white;
+  border-radius: 20rpx;
+}
+
+.form-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.form-subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.form-section {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 25rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.title-icon {
+  font-size: 36rpx;
+  margin-right: 15rpx;
+}
+
+.section-title text:nth-child(2) {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.section-hint {
+  font-size: 24rpx;
+  color: #999;
+  margin-left: 10rpx;
+  font-weight: normal !important;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-item:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 15rpx;
+  font-weight: 500;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #f9fafb;
+  border-radius: 12rpx;
+  padding: 0 25rpx;
+  border: 2rpx solid #e5e7eb;
+  transition: all 0.3s;
+}
+
+.input-wrapper:focus-within {
+  border-color: #a7d6b5;
+  background: #fff;
+}
+
+.input-wrapper input {
+  flex: 1;
+  height: 90rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.input-unit {
+  font-size: 26rpx;
+  color: #999;
+  margin-left: 15rpx;
+}
+
+.form-hint {
+  display: block;
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 10rpx;
+  padding-left: 5rpx;
+}
+
+/* 性别选择器 */
+.gender-selector {
+  display: flex;
+  gap: 20rpx;
+}
+
+.gender-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30rpx;
+  background: #f9fafb;
+  border-radius: 15rpx;
+  border: 2rpx solid #e5e7eb;
+  transition: all 0.3s;
+}
+
+.gender-option.active {
+  background: #f0fdf4;
+  border-color: #a7d6b5;
+}
+
+.gender-icon {
+  font-size: 50rpx;
+  margin-bottom: 10rpx;
+}
+
+.gender-option text:last-child {
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* BMI显示 */
+.bmi-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25rpx;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-radius: 15rpx;
+  margin-top: 20rpx;
+  gap: 15rpx;
+}
+
+.bmi-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.bmi-value {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #a7d6b5;
+}
+
+.bmi-value.warning {
+  color: #f59e0b;
+}
+
+.bmi-value.danger {
+  color: #ef4444;
+}
+
+.bmi-status {
+  font-size: 24rpx;
+  color: #666;
+  padding: 6rpx 15rpx;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20rpx;
+}
+
+/* 表单按钮 */
+.form-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 20rpx 0;
+  margin-top: 20rpx;
+}
+
+.cancel-btn {
+  flex: 1;
+  padding: 28rpx;
+  background: #f3f4f6;
+  color: #666;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  border: none;
+}
+
+.submit-btn {
+  flex: 2;
+  padding: 28rpx;
+  background: linear-gradient(135deg, #b2e5a1 0%, #89bb8e 100%);
+  color: white;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  border: none;
+}
+
+/* ==================== 结果页面样式 ==================== */
 .result-container {
   padding: 20rpx;
 }
@@ -310,6 +526,10 @@
   position: relative;
 }
 
+.overall-score.warning {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+
 .overall-label {
   display: block;
   font-size: 28rpx;
@@ -330,6 +550,128 @@
 .ring-text {
   font-size: 24rpx;
   opacity: 0.9;
+}
+
+/* 代谢综合征结果卡片 */
+.metabolic-syndrome-card {
+  background: white;
+  border-radius: 20rpx;
+  overflow: hidden;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.syndrome-header {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  gap: 15rpx;
+}
+
+.syndrome-header.normal {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+}
+
+.syndrome-header.warning {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
+.syndrome-icon {
+  font-size: 40rpx;
+}
+
+.syndrome-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.syndrome-result {
+  padding: 30rpx;
+  text-align: center;
+}
+
+.syndrome-status {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.syndrome-detail {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 指标详情卡片 */
+.indicators-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.indicator-item {
+  padding: 25rpx;
+  border-radius: 15rpx;
+  margin-bottom: 15rpx;
+  border-left: 6rpx solid;
+}
+
+.indicator-item:last-child {
+  margin-bottom: 0;
+}
+
+.indicator-item.normal {
+  background: #f0fdf4;
+  border-color: #a7d6b5;
+}
+
+.indicator-item.abnormal {
+  background: #fef3c7;
+  border-color: #f59e0b;
+}
+
+.indicator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.indicator-name {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.indicator-status {
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.indicator-item.normal .indicator-status {
+  background: #a7d6b5;
+  color: white;
+}
+
+.indicator-item.abnormal .indicator-status {
+  background: #f59e0b;
+  color: white;
+}
+
+.indicator-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.indicator-detail text {
+  font-size: 24rpx;
+  color: #666;
 }
 
 /* 建议部分 */

@@ -3,7 +3,7 @@ const util = require('../../utils/util.js')
 
 Page({
   data: {
-    selectedType: 'psychological', // psychological, metabolic, lifestyle
+    selectedType: 'psychological', // psychological, physiological, lifestyle
     assessmentStarted: false,
     showResult: false,
     
@@ -17,6 +17,26 @@ Page({
     gad7Answers: new Array(7).fill(-1),
     lifestyleAnswers: {},
     
+    // 生理指标数据
+    physioData: {
+      gender: '',
+      age: '',
+      height: '',
+      weight: '',
+      waistline: '',
+      systolicBP: '',
+      diastolicBP: '',
+      fastingGlucose: '',
+      ogttGlucose: '',
+      triglycerides: '',
+      hdlCholesterol: ''
+    },
+    
+    // BMI计算相关
+    calculatedBMI: '',
+    bmiStatus: '',
+    bmiStatusText: '',
+    
     // 题目数据
     currentQuestion: {},
     
@@ -27,6 +47,17 @@ Page({
     gad7Level: '',
     overallScore: 0,
     adviceList: [],
+    
+    // 生理指标结果
+    hasMetabolicSyndrome: false,
+    metabolicCriteriaCount: 0,
+    physioResults: {
+      obesity: { abnormal: false, bmi: '', waistline: '' },
+      hypertension: { abnormal: false },
+      hyperglycemia: { abnormal: false },
+      highTriglycerides: { abnormal: false },
+      lowHDL: { abnormal: false }
+    },
     
     // 进度
     progress: 0,
@@ -83,9 +114,33 @@ Page({
     let currentSection = 'phq9'
     let totalQuestions = 16 // PHQ-9(9) + GAD-7(7)
     
-    if (type === 'metabolic') {
-      currentSection = 'lifestyle'
-      totalQuestions = 8
+    if (type === 'physiological') {
+      // 生理指标评估，尝试从用户信息中获取性别和年龄
+      const userInfo = app.globalData.userInfo || {}
+      let gender = ''
+      let age = ''
+      
+      // 处理性别信息
+      if (userInfo.gender) {
+        // 可能存储的是"男"/"女"或"male"/"female"
+        if (userInfo.gender === '男' || userInfo.gender === 'male') {
+          gender = 'male'
+        } else if (userInfo.gender === '女' || userInfo.gender === 'female') {
+          gender = 'female'
+        }
+      }
+      
+      // 处理年龄信息
+      if (userInfo.age) {
+        age = String(userInfo.age)
+      }
+      
+      this.setData({
+        assessmentStarted: true,
+        'physioData.gender': gender,
+        'physioData.age': age
+      })
+      return
     } else if (type === 'lifestyle') {
       currentSection = 'lifestyle'
       totalQuestions = 8
@@ -164,6 +219,248 @@ Page({
     
     // 自动保存进度
     this.saveProgress()
+  },
+
+  // 生理指标表单 - 选择性别
+  selectGender: function(e) {
+    const gender = e.currentTarget.dataset.gender
+    this.setData({
+      'physioData.gender': gender
+    })
+  },
+
+  // 生理指标表单 - 输入变化
+  onInputChange: function(e) {
+    const field = e.currentTarget.dataset.field
+    const value = e.detail.value
+    
+    this.setData({
+      [`physioData.${field}`]: value
+    })
+    
+    // 如果是身高或体重变化，计算BMI
+    if (field === 'height' || field === 'weight') {
+      this.calculateBMI()
+    }
+  },
+
+  // 计算BMI
+  calculateBMI: function() {
+    const { height, weight } = this.data.physioData
+    
+    if (height && weight) {
+      const heightM = parseFloat(height) / 100
+      const weightKg = parseFloat(weight)
+      const bmi = (weightKg / (heightM * heightM)).toFixed(1)
+      
+      let status = 'normal'
+      let statusText = '正常'
+      
+      if (bmi < 18.5) {
+        status = 'warning'
+        statusText = '偏瘦'
+      } else if (bmi >= 18.5 && bmi < 24) {
+        status = 'normal'
+        statusText = '正常'
+      } else if (bmi >= 24 && bmi < 25) {
+        status = 'warning'
+        statusText = '偏重'
+      } else if (bmi >= 25 && bmi < 28) {
+        status = 'warning'
+        statusText = '超重'
+      } else if (bmi >= 28) {
+        status = 'danger'
+        statusText = '肥胖'
+      }
+      
+      this.setData({
+        calculatedBMI: bmi,
+        bmiStatus: status,
+        bmiStatusText: statusText
+      })
+    }
+  },
+
+  // 提交生理指标评估
+  submitPhysiologicalData: function() {
+    const { physioData } = this.data
+    
+    // 验证必填项
+    if (!physioData.gender) {
+      wx.showToast({ title: '请选择性别', icon: 'none' })
+      return
+    }
+    if (!physioData.height || !physioData.weight) {
+      wx.showToast({ title: '请填写身高和体重', icon: 'none' })
+      return
+    }
+    if (!physioData.systolicBP || !physioData.diastolicBP) {
+      wx.showToast({ title: '请填写血压数据', icon: 'none' })
+      return
+    }
+    if (!physioData.fastingGlucose) {
+      wx.showToast({ title: '请填写空腹血糖', icon: 'none' })
+      return
+    }
+    if (!physioData.triglycerides) {
+      wx.showToast({ title: '请填写甘油三酯', icon: 'none' })
+      return
+    }
+    if (!physioData.hdlCholesterol) {
+      wx.showToast({ title: '请填写高密度脂蛋白', icon: 'none' })
+      return
+    }
+    
+    // 计算代谢综合征
+    this.calculatePhysiologicalResult()
+  },
+
+  // 计算生理指标结果
+  calculatePhysiologicalResult: function() {
+    const { physioData, calculatedBMI } = this.data
+    const gender = physioData.gender
+    
+    let criteriaCount = 0
+    const results = {
+      obesity: { abnormal: false, bmi: calculatedBMI, waistline: physioData.waistline },
+      hypertension: { abnormal: false },
+      hyperglycemia: { abnormal: false },
+      highTriglycerides: { abnormal: false },
+      lowHDL: { abnormal: false }
+    }
+    
+    // 1. 中心性肥胖判断
+    // BMI ≥ 25 或 男性腰围 > 90cm / 女性腰围 > 85cm
+    const bmi = parseFloat(calculatedBMI)
+    const waistline = parseFloat(physioData.waistline) || 0
+    
+    if (bmi >= 25) {
+      results.obesity.abnormal = true
+      criteriaCount++
+    } else if (gender === 'male' && waistline > 90) {
+      results.obesity.abnormal = true
+      criteriaCount++
+    } else if (gender === 'female' && waistline > 85) {
+      results.obesity.abnormal = true
+      criteriaCount++
+    }
+    
+    // 2. 高血压判断
+    // 收缩压 > 130mmHg 和/或 舒张压 > 85mmHg
+    const systolicBP = parseFloat(physioData.systolicBP)
+    const diastolicBP = parseFloat(physioData.diastolicBP)
+    
+    if (systolicBP > 130 || diastolicBP > 85) {
+      results.hypertension.abnormal = true
+      criteriaCount++
+    }
+    
+    // 3. 高血糖判断
+    // 空腹血糖 ≥ 6.1mmol/L 或 OGTT后2小时血糖 ≥ 7.8mmol/L
+    const fastingGlucose = parseFloat(physioData.fastingGlucose)
+    const ogttGlucose = parseFloat(physioData.ogttGlucose) || 0
+    
+    if (fastingGlucose >= 6.1 || ogttGlucose >= 7.8) {
+      results.hyperglycemia.abnormal = true
+      criteriaCount++
+    }
+    
+    // 4. 高甘油三酯判断
+    // TG ≥ 1.7mmol/L
+    const triglycerides = parseFloat(physioData.triglycerides)
+    
+    if (triglycerides >= 1.7) {
+      results.highTriglycerides.abnormal = true
+      criteriaCount++
+    }
+    
+    // 5. 低高密度脂蛋白判断
+    // HDL-C < 1.04mmol/L
+    const hdlCholesterol = parseFloat(physioData.hdlCholesterol)
+    
+    if (hdlCholesterol < 1.04) {
+      results.lowHDL.abnormal = true
+      criteriaCount++
+    }
+    
+    // 代谢综合征判断：符合3项及以上
+    const hasMetabolicSyndrome = criteriaCount >= 3
+    
+    // 计算综合评分（满分100，每项异常扣20分）
+    const overallScore = Math.max(0, 100 - criteriaCount * 20)
+    
+    // 生成建议
+    const adviceList = this.generatePhysiologicalAdvice(results, hasMetabolicSyndrome)
+    
+    this.setData({
+      showResult: true,
+      hasMetabolicSyndrome: hasMetabolicSyndrome,
+      metabolicCriteriaCount: criteriaCount,
+      physioResults: results,
+      overallScore: overallScore,
+      adviceList: adviceList
+    })
+    
+    this.savePhysiologicalResult()
+  },
+
+  // 生成生理指标建议
+  generatePhysiologicalAdvice: function(results, hasMetabolicSyndrome) {
+    const advice = []
+    
+    if (hasMetabolicSyndrome) {
+      advice.push('您存在代谢综合征风险，建议尽快就医进行详细检查')
+      advice.push('代谢综合征会增加心血管疾病和糖尿病风险，需要积极干预')
+    }
+    
+    if (results.obesity.abnormal) {
+      advice.push('建议控制体重，目标BMI维持在18.5-24之间')
+      advice.push('可通过合理饮食和规律运动来减轻体重')
+    }
+    
+    if (results.hypertension.abnormal) {
+      advice.push('血压偏高，建议低盐饮食，每日盐摄入量控制在6g以内')
+      advice.push('建议定期监测血压，必要时就医')
+    }
+    
+    if (results.hyperglycemia.abnormal) {
+      advice.push('血糖偏高，建议控制碳水化合物摄入，避免高糖食物')
+      advice.push('建议定期检测血糖，必要时进行糖耐量试验')
+    }
+    
+    if (results.highTriglycerides.abnormal) {
+      advice.push('甘油三酯偏高，建议减少油腻食物和酒精摄入')
+      advice.push('增加富含omega-3脂肪酸的食物，如深海鱼类')
+    }
+    
+    if (results.lowHDL.abnormal) {
+      advice.push('高密度脂蛋白偏低，建议增加有氧运动')
+      advice.push('戒烟限酒，增加膳食纤维摄入')
+    }
+    
+    if (advice.length === 0) {
+      advice.push('您的代谢指标均在正常范围内，请继续保持健康的生活方式')
+      advice.push('建议定期进行健康体检，每年至少一次')
+    }
+    
+    return advice
+  },
+
+  // 保存生理指标评估结果
+  savePhysiologicalResult: function() {
+    const result = {
+      type: 'physiological',
+      physioData: this.data.physioData,
+      physioResults: this.data.physioResults,
+      hasMetabolicSyndrome: this.data.hasMetabolicSyndrome,
+      metabolicCriteriaCount: this.data.metabolicCriteriaCount,
+      overallScore: this.data.overallScore,
+      adviceList: this.data.adviceList,
+      timestamp: Date.now(),
+      date: util.formatDate(new Date(), 'YYYY-MM-DD HH:mm')
+    }
+    
+    app.saveAssessmentResult(result)
   },
 
   nextQuestion: function() {
@@ -290,7 +587,7 @@ Page({
     
     if (type === 'psychological') {
       this.calculatePsychologicalResult()
-    } else if (type === 'lifestyle' || type === 'metabolic') {
+    } else if (type === 'lifestyle') {
       this.calculateLifestyleResult()
     }
   },
@@ -531,6 +828,24 @@ Page({
       phq9Answers: new Array(9).fill(-1),
       gad7Answers: new Array(7).fill(-1),
       lifestyleAnswers: {},
+      physioData: {
+        gender: '',
+        age: '',
+        height: '',
+        weight: '',
+        waistline: '',
+        systolicBP: '',
+        diastolicBP: '',
+        fastingGlucose: '',
+        ogttGlucose: '',
+        triglycerides: '',
+        hdlCholesterol: ''
+      },
+      calculatedBMI: '',
+      bmiStatus: '',
+      bmiStatusText: '',
+      hasMetabolicSyndrome: false,
+      metabolicCriteriaCount: 0,
       progress: 0
     })
   }

@@ -5,7 +5,12 @@ Page({
     userName: '健康用户',
     assessmentCount: 0,
     dataRecordCount: 0,
-    continuousDays: 0
+    continuousDays: 0,
+    
+    // 显示更多用户信息
+    userGender: '',
+    userAge: '',
+    userEducation: ''
   },
 
   onLoad: function() {
@@ -14,6 +19,7 @@ Page({
   },
 
   onShow: function() {
+    this.loadUserInfo()
     this.loadStats()
   },
 
@@ -21,7 +27,10 @@ Page({
     const userInfo = app.globalData.userInfo
     if (userInfo) {
       this.setData({
-        userName: userInfo.nickName || userInfo.name || '健康用户'
+        userName: userInfo.nickName || userInfo.name || '健康用户',
+        userGender: userInfo.gender || '',
+        userAge: userInfo.age || '',
+        userEducation: userInfo.education || ''
       })
     }
   },
@@ -64,25 +73,9 @@ Page({
   },
 
   editProfile: function() {
-    wx.showModal({
-      title: '编辑资料',
-      content: '请输入您的昵称',
-      editable: true,
-      placeholderText: this.data.userName,
-      success: (res) => {
-        if (res.confirm && res.content) {
-          const userInfo = app.globalData.userInfo || {}
-          userInfo.nickName = res.content
-          app.saveUserInfo(userInfo)
-          this.setData({
-            userName: res.content
-          })
-          wx.showToast({
-            title: '保存成功',
-            icon: 'success'
-          })
-        }
-      }
+    // 跳转到个人信息编辑页面
+    wx.navigateTo({
+      url: '/pages/user-info/user-info'
     })
   },
 
@@ -114,7 +107,10 @@ Page({
             userName: '健康用户',
             assessmentCount: 0,
             dataRecordCount: 0,
-            continuousDays: 0
+            continuousDays: 0,
+            userGender: '',
+            userAge: '',
+            userEducation: ''
           })
         }
       }

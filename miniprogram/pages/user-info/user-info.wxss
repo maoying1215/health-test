@@ -1,0 +1,161 @@
+.user-info-container {
+  min-height: 100vh;
+  background: #f5f7fa;
+  padding-bottom: 200rpx;
+}
+
+/* 页面头部 */
+.page-header {
+  background: linear-gradient(135deg, #94b088 0%, #a0d6e4 100%);
+  padding: 60rpx 40rpx 40rpx;
+  text-align: center;
+}
+
+.page-title {
+  display: block;
+  font-size: 44rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 15rpx;
+}
+
+.page-desc {
+  display: block;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 表单容器 */
+.form-container {
+  padding: 20rpx;
+}
+
+.form-section {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  padding-left: 20rpx;
+  border-left: 6rpx solid #a7d6b5;
+}
+
+/* 表单项 */
+.form-item {
+  display: flex;
+  align-items: center;
+  padding: 25rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.form-item:last-child {
+  border-bottom: none;
+}
+
+.label {
+  width: 180rpx;
+  font-size: 28rpx;
+  color: #333;
+  flex-shrink: 0;
+}
+
+.label.required::before {
+  content: '*';
+  color: #ef4444;
+  margin-right: 5rpx;
+}
+
+.input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  text-align: right;
+}
+
+.input.disabled {
+  color: #999;
+}
+
+.input::placeholder {
+  color: #ccc;
+}
+
+/* 选择器 */
+.picker {
+  flex: 1;
+  text-align: right;
+}
+
+.picker-value {
+  font-size: 28rpx;
+  color: #333;
+  padding: 10rpx 0;
+}
+
+.picker-value:empty::before {
+  content: attr(placeholder);
+  color: #ccc;
+}
+
+/* 底部按钮组 */
+.button-group {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 20rpx;
+  display: flex;
+  gap: 20rpx;
+  box-shadow: 0 -4rpx 12rpx rgba(0, 0, 0, 0.06);
+  z-index: 100;
+}
+
+.btn {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  border: none;
+}
+
+.cancel-btn {
+  background: #f3f4f6;
+  color: #666;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #b2e5a1 0%, #89bb8e 100%);
+  color: white;
+}
+
+.save-btn:active {
+  opacity: 0.8;
+}
+
+/* 提示信息 */
+.tips {
+  padding: 30rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+  align-items: center;
+}
+
+.tips-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.tips-text:first-child {
+  color: #ef4444;
+}

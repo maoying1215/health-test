@@ -1,0 +1,166 @@
+<view class="user-info-container">
+  <view class="page-header">
+    <text class="page-title">个人信息</text>
+    <text class="page-desc">完善您的个人资料</text>
+  </view>
+
+  <view class="form-container">
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="section-title">基本信息</view>
+
+      <!-- 昵称 -->
+      <view class="form-item">
+        <text class="label required">昵称</text>
+        <input 
+          class="input" 
+          placeholder="请输入昵称" 
+          value="{{formData.nickName}}"
+          bindinput="onNickNameInput"
+        />
+      </view>
+
+      <!-- 性别 -->
+      <view class="form-item">
+        <text class="label required">性别</text>
+        <picker 
+          class="picker" 
+          mode="selector" 
+          range="{{genderOptions}}" 
+          value="{{genderIndex}}"
+          bindchange="onGenderChange">
+          <view class="picker-value">
+            {{genderIndex === -1 ? '请选择性别' : genderOptions[genderIndex]}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 出生日期 -->
+      <view class="form-item">
+        <text class="label required">出生日期</text>
+        <picker 
+          class="picker" 
+          mode="date" 
+          value="{{formData.birthDate}}"
+          start="{{minDate}}"
+          end="{{maxDate}}"
+          bindchange="onBirthDateChange">
+          <view class="picker-value">
+            {{formData.birthDate || '请选择出生日期'}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 年龄（自动计算） -->
+      <view class="form-item">
+        <text class="label">年龄</text>
+        <view class="input disabled">{{formData.age || '根据出生日期自动计算'}}岁</view>
+      </view>
+
+      <!-- 民族 -->
+      <view class="form-item">
+        <text class="label">民族</text>
+        <picker 
+          class="picker" 
+          mode="selector" 
+          range="{{nationOptions}}" 
+          value="{{nationIndex}}"
+          bindchange="onNationChange">
+          <view class="picker-value">
+            {{nationOptions[nationIndex]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 教育与职业信息 -->
+    <view class="form-section">
+      <view class="section-title">教育与职业</view>
+
+      <!-- 文化程度 -->
+      <view class="form-item">
+        <text class="label">文化程度</text>
+        <picker 
+          class="picker" 
+          mode="selector" 
+          range="{{educationOptions}}" 
+          value="{{educationIndex}}"
+          bindchange="onEducationChange">
+          <view class="picker-value">
+            {{educationIndex === -1 ? '请选择文化程度' : educationOptions[educationIndex]}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 职业 -->
+      <view class="form-item">
+        <text class="label">职业</text>
+        <input 
+          class="input" 
+          placeholder="请输入职业" 
+          value="{{formData.occupation}}"
+          bindinput="onOccupationInput"
+        />
+      </view>
+
+      <!-- 工作年限 -->
+      <view class="form-item">
+        <text class="label">工作年限</text>
+        <input 
+          class="input" 
+          type="number"
+          placeholder="请输入工作年限（年）" 
+          value="{{formData.workYears}}"
+          bindinput="onWorkYearsInput"
+        />
+      </view>
+    </view>
+
+    <!-- 家庭信息 -->
+    <view class="form-section">
+      <view class="section-title">家庭信息</view>
+
+      <!-- 婚姻状况 -->
+      <view class="form-item">
+        <text class="label">婚姻状况</text>
+        <picker 
+          class="picker" 
+          mode="selector" 
+          range="{{maritalOptions}}" 
+          value="{{maritalIndex}}"
+          bindchange="onMaritalChange">
+          <view class="picker-value">
+            {{maritalIndex === -1 ? '请选择婚姻状况' : maritalOptions[maritalIndex]}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 月家庭收入 -->
+      <view class="form-item">
+        <text class="label">月家庭收入</text>
+        <picker 
+          class="picker" 
+          mode="selector" 
+          range="{{incomeOptions}}" 
+          value="{{incomeIndex}}"
+          bindchange="onIncomeChange">
+          <view class="picker-value">
+            {{incomeIndex === -1 ? '请选择月家庭收入' : incomeOptions[incomeIndex]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="button-group">
+    <button class="btn cancel-btn" bindtap="cancelEdit">取消</button>
+    <button class="btn save-btn" bindtap="saveUserInfo">保存</button>
+  </view>
+
+  <!-- 提示信息 -->
+  <view class="tips">
+    <text class="tips-text">* 标记为必填项</text>
+    <text class="tips-text">您的信息将被严格保密</text>
+  </view>
+</view>

@@ -17,6 +17,15 @@
       </view>
 
       <view 
+        class="type-card {{selectedType === 'physiological' ? 'active' : ''}}"
+        bindtap="selectType"
+        data-type="physiological">
+        <view class="card-icon">🩺</view>
+        <text class="card-title">生理指标评估</text>
+        <text class="card-desc">代谢综合征筛查：肥胖、血压、血糖、血脂</text>
+      </view>
+
+      <view 
         class="type-card {{selectedType === 'lifestyle' ? 'active' : ''}}"
         bindtap="selectType"
         data-type="lifestyle">
@@ -29,8 +38,8 @@
     <button class="start-btn" bindtap="startAssessment">开始评估</button>
   </view>
 
-  <!-- 评估进行中 -->
-  <view wx:if="{{assessmentStarted && !showResult}}" class="assessment-progress">
+  <!-- 心理/生活方式评估进行中 -->
+  <view wx:if="{{assessmentStarted && !showResult && selectedType !== 'physiological'}}" class="assessment-progress">
     <!-- 顶部进度条 -->
     <view class="progress-section">
       <view class="progress-info">
@@ -86,6 +95,229 @@
     </view>
   </view>
 
+  <!-- 生理指标评估表单 -->
+  <view wx:if="{{assessmentStarted && !showResult && selectedType === 'physiological'}}" class="physiological-form">
+    <view class="form-header">
+      <text class="form-title">生理指标评估</text>
+      <text class="form-subtitle">请填写您的健康数据，用于代谢综合征筛查</text>
+    </view>
+
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="section-title">
+        <text class="title-icon">👤</text>
+        <text>基本信息</text>
+        <text class="section-hint" wx:if="{{physioData.gender || physioData.age}}">（已从个人中心获取）</text>
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">性别</text>
+        <view class="gender-selector">
+          <view 
+            class="gender-option {{physioData.gender === 'male' ? 'active' : ''}}"
+            bindtap="selectGender"
+            data-gender="male">
+            <text class="gender-icon">👨</text>
+            <text>男</text>
+          </view>
+          <view 
+            class="gender-option {{physioData.gender === 'female' ? 'active' : ''}}"
+            bindtap="selectGender"
+            data-gender="female">
+            <text class="gender-icon">👩</text>
+            <text>女</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">年龄</text>
+        <view class="input-wrapper">
+          <input 
+            type="number" 
+            placeholder="请输入年龄" 
+            value="{{physioData.age}}"
+            bindinput="onInputChange"
+            data-field="age"/>
+          <text class="input-unit">岁</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 体型指标 -->
+    <view class="form-section">
+      <view class="section-title">
+        <text class="title-icon">📏</text>
+        <text>体型指标</text>
+        <text class="section-hint">（中心性肥胖评估）</text>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">身高</text>
+        <view class="input-wrapper">
+          <input 
+            type="digit" 
+            placeholder="请输入身高" 
+            value="{{physioData.height}}"
+            bindinput="onInputChange"
+            data-field="height"/>
+          <text class="input-unit">cm</text>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">体重</text>
+        <view class="input-wrapper">
+          <input 
+            type="digit" 
+            placeholder="请输入体重" 
+            value="{{physioData.weight}}"
+            bindinput="onInputChange"
+            data-field="weight"/>
+          <text class="input-unit">kg</text>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">腰围</text>
+        <view class="input-wrapper">
+          <input 
+            type="digit" 
+            placeholder="请输入腰围（可选）" 
+            value="{{physioData.waistline}}"
+            bindinput="onInputChange"
+            data-field="waistline"/>
+          <text class="input-unit">cm</text>
+        </view>
+        <text class="form-hint">男性>90cm或女性>85cm为中心性肥胖</text>
+      </view>
+
+      <!-- BMI计算显示 -->
+      <view class="bmi-display" wx:if="{{physioData.height && physioData.weight}}">
+        <text class="bmi-label">您的BMI值</text>
+        <text class="bmi-value {{bmiStatus}}">{{calculatedBMI}}</text>
+        <text class="bmi-status">{{bmiStatusText}}</text>
+      </view>
+    </view>
+
+    <!-- 血压指标 -->
+    <view class="form-section">
+      <view class="section-title">
+        <text class="title-icon">💓</text>
+        <text>血压指标</text>
+        <text class="section-hint">（高血压评估）</text>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">收缩压（高压）</text>
+        <view class="input-wrapper">
+          <input 
+            type="number" 
+            placeholder="请输入收缩压" 
+            value="{{physioData.systolicBP}}"
+            bindinput="onInputChange"
+            data-field="systolicBP"/>
+          <text class="input-unit">mmHg</text>
+        </view>
+        <text class="form-hint">正常值 ＜ 130 mmHg</text>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">舒张压（低压）</text>
+        <view class="input-wrapper">
+          <input 
+            type="number" 
+            placeholder="请输入舒张压" 
+            value="{{physioData.diastolicBP}}"
+            bindinput="onInputChange"
+            data-field="diastolicBP"/>
+          <text class="input-unit">mmHg</text>
+        </view>
+        <text class="form-hint">正常值 ＜ 85 mmHg</text>
+      </view>
+    </view>
+
+    <!-- 血糖指标 -->
+    <view class="form-section">
+      <view class="section-title">
+        <text class="title-icon">🩸</text>
+        <text>血糖指标</text>
+        <text class="section-hint">（高血糖评估）</text>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">空腹血糖</text>
+        <view class="input-wrapper">
+          <input 
+            type="digit" 
+            placeholder="请输入空腹血糖" 
+            value="{{physioData.fastingGlucose}}"
+            bindinput="onInputChange"
+            data-field="fastingGlucose"/>
+          <text class="input-unit">mmol/L</text>
+        </view>
+        <text class="form-hint">正常值 ＜ 6.1 mmol/L</text>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">餐后2小时血糖（OGTT）</text>
+        <view class="input-wrapper">
+          <input 
+            type="digit" 
+            placeholder="请输入（可选）" 
+            value="{{physioData.ogttGlucose}}"
+            bindinput="onInputChange"
+            data-field="ogttGlucose"/>
+          <text class="input-unit">mmol/L</text>
+        </view>
+        <text class="form-hint">正常值 ＜ 7.8 mmol/L</text>
+      </view>
+    </view>
+
+    <!-- 血脂指标 -->
+    <view class="form-section">
+      <view class="section-title">
+        <text class="title-icon">💉</text>
+        <text>血脂指标</text>
+        <text class="section-hint">（血脂异常评估）</text>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">甘油三酯（TG）</text>
+        <view class="input-wrapper">
+          <input 
+            type="digit" 
+            placeholder="请输入甘油三酯" 
+            value="{{physioData.triglycerides}}"
+            bindinput="onInputChange"
+            data-field="triglycerides"/>
+          <text class="input-unit">mmol/L</text>
+        </view>
+        <text class="form-hint">正常值 ＜ 1.7 mmol/L</text>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">高密度脂蛋白（HDL-C）</text>
+        <view class="input-wrapper">
+          <input 
+            type="digit" 
+            placeholder="请输入HDL-C" 
+            value="{{physioData.hdlCholesterol}}"
+            bindinput="onInputChange"
+            data-field="hdlCholesterol"/>
+          <text class="input-unit">mmol/L</text>
+        </view>
+        <text class="form-hint">正常值 ≥ 1.04 mmol/L</text>
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="form-actions">
+      <button class="cancel-btn" bindtap="exitAssessment">取消</button>
+      <button class="submit-btn" bindtap="submitPhysiologicalData">提交评估</button>
+    </view>
+  </view>
+
   <!-- 评估结果 -->
   <view wx:if="{{showResult}}" class="result-container">
     <view class="result-header">
@@ -93,7 +325,7 @@
     </view>
 
     <!-- 心理评估结果 -->
-    <view wx:if="{{phq9Score !== undefined}}" class="result-section">
+    <view wx:if="{{selectedType === 'psychological'}}" class="result-section">
       <view class="score-card">
         <view class="score-item">
           <text class="score-label">抑郁评分 (PHQ-9)</text>
@@ -109,6 +341,96 @@
 
       <view class="overall-score">
         <text class="overall-label">综合健康评分</text>
+        <text class="overall-value">{{overallScore}}</text>
+        <view class="score-ring">
+          <text class="ring-text">分</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 生理指标评估结果 -->
+    <view wx:if="{{selectedType === 'physiological'}}" class="result-section">
+      <!-- 代谢综合征诊断 -->
+      <view class="metabolic-syndrome-card">
+        <view class="syndrome-header {{hasMetabolicSyndrome ? 'warning' : 'normal'}}">
+          <text class="syndrome-icon">{{hasMetabolicSyndrome ? '⚠️' : '✅'}}</text>
+          <text class="syndrome-title">代谢综合征筛查结果</text>
+        </view>
+        <view class="syndrome-result">
+          <text class="syndrome-status">{{hasMetabolicSyndrome ? '存在代谢综合征风险' : '未发现代谢综合征'}}</text>
+          <text class="syndrome-detail">符合 {{metabolicCriteriaCount}}/5 项诊断标准</text>
+        </view>
+      </view>
+
+      <!-- 各项指标详情 -->
+      <view class="indicators-card">
+        <view class="indicator-item {{physioResults.obesity.abnormal ? 'abnormal' : 'normal'}}">
+          <view class="indicator-header">
+            <text class="indicator-name">中心性肥胖</text>
+            <text class="indicator-status">{{physioResults.obesity.abnormal ? '异常' : '正常'}}</text>
+          </view>
+          <view class="indicator-detail">
+            <text wx:if="{{physioResults.obesity.bmi}}">BMI: {{physioResults.obesity.bmi}} kg/m²</text>
+            <text wx:if="{{physioResults.obesity.waistline}}">腰围: {{physioResults.obesity.waistline}} cm</text>
+          </view>
+        </view>
+
+        <view class="indicator-item {{physioResults.hypertension.abnormal ? 'abnormal' : 'normal'}}">
+          <view class="indicator-header">
+            <text class="indicator-name">高血压</text>
+            <text class="indicator-status">{{physioResults.hypertension.abnormal ? '异常' : '正常'}}</text>
+          </view>
+          <view class="indicator-detail">
+            <text>血压: {{physioData.systolicBP}}/{{physioData.diastolicBP}} mmHg</text>
+          </view>
+        </view>
+
+        <view class="indicator-item {{physioResults.hyperglycemia.abnormal ? 'abnormal' : 'normal'}}">
+          <view class="indicator-header">
+            <text class="indicator-name">高血糖</text>
+            <text class="indicator-status">{{physioResults.hyperglycemia.abnormal ? '异常' : '正常'}}</text>
+          </view>
+          <view class="indicator-detail">
+            <text wx:if="{{physioData.fastingGlucose}}">空腹血糖: {{physioData.fastingGlucose}} mmol/L</text>
+            <text wx:if="{{physioData.ogttGlucose}}">餐后血糖: {{physioData.ogttGlucose}} mmol/L</text>
+          </view>
+        </view>
+
+        <view class="indicator-item {{physioResults.highTriglycerides.abnormal ? 'abnormal' : 'normal'}}">
+          <view class="indicator-header">
+            <text class="indicator-name">高甘油三酯</text>
+            <text class="indicator-status">{{physioResults.highTriglycerides.abnormal ? '异常' : '正常'}}</text>
+          </view>
+          <view class="indicator-detail">
+            <text>甘油三酯: {{physioData.triglycerides}} mmol/L</text>
+          </view>
+        </view>
+
+        <view class="indicator-item {{physioResults.lowHDL.abnormal ? 'abnormal' : 'normal'}}">
+          <view class="indicator-header">
+            <text class="indicator-name">低高密度脂蛋白</text>
+            <text class="indicator-status">{{physioResults.lowHDL.abnormal ? '异常' : '正常'}}</text>
+          </view>
+          <view class="indicator-detail">
+            <text>HDL-C: {{physioData.hdlCholesterol}} mmol/L</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 综合评分 -->
+      <view class="overall-score {{hasMetabolicSyndrome ? 'warning' : ''}}">
+        <text class="overall-label">代谢健康评分</text>
+        <text class="overall-value">{{overallScore}}</text>
+        <view class="score-ring">
+          <text class="ring-text">分</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 生活方式评估结果 -->
+    <view wx:if="{{selectedType === 'lifestyle'}}" class="result-section">
+      <view class="overall-score">
+        <text class="overall-label">生活方式健康评分</text>
         <text class="overall-value">{{overallScore}}</text>
         <view class="score-ring">
           <text class="ring-text">分</text>

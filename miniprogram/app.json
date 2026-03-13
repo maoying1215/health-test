@@ -7,7 +7,15 @@
     "pages/profile/profile",
     "pages/daily-check/daily-check",
     "pages/health-knowledge/health-knowledge",
-    "pages/user-info/user-info"
+    "pages/user-info/user-info",
+    "pages/reminder/reminder",
+    "pages/report/report",
+    "pages/goal/goal",
+    "pages/achievements/achievements",
+    "pages/privacy/privacy",
+    "pages/notification/notification",
+    "pages/help/help",
+    "pages/about/about"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -23,7 +23,6 @@ Page({
           loadingText: step.text
         })
 
-        // 加载完成后跳转到首页（使用 switchTab 跳转到 tabBar 页面）
         if (step.progress === 100) {
           setTimeout(() => {
             wx.switchTab({

@@ -1,0 +1,171 @@
+.report-header {
+  background: linear-gradient(135deg, #94b088 0%, #a0d6e4 100%);
+  color: white;
+  text-align: center;
+}
+
+.report-title {
+  font-size: 32rpx;
+  color: rgba(255,255,255,0.9);
+  display: block;
+}
+
+.report-date {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.8);
+  display: block;
+  margin-bottom: 30rpx;
+}
+
+.score-circle {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  border: 6rpx solid rgba(255,255,255,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20rpx;
+}
+
+.score-value {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: white;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.9);
+}
+
+.score-desc {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.95);
+}
+
+.dimension-item {
+  margin-bottom: 30rpx;
+}
+
+.dimension-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.dimension-icon {
+  font-size: 36rpx;
+  margin-right: 12rpx;
+}
+
+.dimension-name {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+}
+
+.dimension-score {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #94b088;
+}
+
+.progress-bar {
+  height: 12rpx;
+  background: #f0f0f0;
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin-bottom: 10rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 6rpx;
+  transition: width 0.3s;
+}
+
+.dimension-comment {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-date {
+  font-size: 26rpx;
+  color: #666;
+  min-width: 160rpx;
+}
+
+.record-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.tag {
+  background: #e8f5e4;
+  color: #94b088;
+  font-size: 22rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.advice-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.advice-item:last-child {
+  border-bottom: none;
+}
+
+.advice-bullet {
+  font-size: 36rpx;
+  margin-right: 16rpx;
+}
+
+.advice-text {
+  font-size: 28rpx;
+  color: #444;
+  flex: 1;
+  line-height: 1.6;
+}
+
+.empty-tip {
+  padding: 40rpx 0;
+  text-align: center;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #bbb;
+}
+
+.share-section {
+  padding: 20rpx;
+  margin-top: 10rpx;
+}
+
+.share-btn {
+  width: 100%;
+  background: #94b088;
+  color: white;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+}

@@ -296,26 +296,22 @@ Page({
     }
   },
 
-  // 切换分类
   switchCategory: function(e) {
     const categoryId = e.currentTarget.dataset.id
     this.setData({ currentCategory: categoryId })
     this.filterArticles()
   },
 
-  // 筛选文章
   filterArticles: function() {
     const { articles, currentCategory, searchKeyword } = this.data
     let filtered = articles
 
-    // 按分类筛选
     if (currentCategory !== 'all') {
       filtered = filtered.filter(function(article) {
         return article.category === currentCategory
       })
     }
 
-    // 按关键词筛选
     if (searchKeyword.trim()) {
       const keyword = searchKeyword.toLowerCase()
       filtered = filtered.filter(function(article) {

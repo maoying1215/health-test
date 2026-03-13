@@ -1,0 +1,120 @@
+.subtitle { font-size: 26rpx; color: #999; display: block; margin-top: 8rpx; }
+.section-title { font-size: 28rpx; color: #999; display: block; margin-bottom: 20rpx; }
+
+.faq-list { margin-top: 10rpx; }
+
+.faq-item {
+  border-bottom: 1rpx solid #f0f0f0;
+  padding: 24rpx 0;
+}
+
+.faq-item:last-child { border-bottom: none; }
+
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-q { font-size: 30rpx; color: #333; flex: 1; line-height: 1.5; }
+
+.faq-arrow {
+  font-size: 44rpx;
+  color: #ccc;
+  transition: transform 0.2s;
+  display: inline-block;
+  margin-left: 16rpx;
+}
+
+.faq-arrow.expanded { transform: rotate(90deg); color: #94b088; }
+
+.faq-answer {
+  margin-top: 16rpx;
+  padding: 20rpx;
+  background: #f8fff6;
+  border-radius: 12rpx;
+  border-left: 4rpx solid #94b088;
+}
+
+.faq-a { font-size: 26rpx; color: #666; line-height: 1.7; }
+
+.feedback-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.type-btn {
+  padding: 12rpx 28rpx;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  color: #666;
+  border: 1rpx solid #e0e0e0;
+  background: #f8f8f8;
+}
+
+.type-active {
+  background: #e8f5e4;
+  color: #94b088;
+  border-color: #94b088;
+}
+
+.feedback-input {
+  width: 100%;
+  height: 200rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.word-count {
+  text-align: right;
+  margin-top: 8rpx;
+  margin-bottom: 20rpx;
+}
+
+.count-text { font-size: 24rpx; color: #bbb; }
+
+.contact-row {
+  margin-bottom: 30rpx;
+}
+
+.contact-label { font-size: 26rpx; color: #999; display: block; margin-bottom: 12rpx; }
+
+.contact-input {
+  border: 1rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.submit-btn {
+  width: 100%;
+  background: #94b088;
+  color: white;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+}
+
+.contact-list { margin-top: 10rpx; }
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.contact-item:last-child { border-bottom: none; }
+
+.contact-icon { font-size: 40rpx; margin-right: 20rpx; }
+.contact-info { flex: 1; }
+.contact-name { font-size: 28rpx; color: #666; display: block; margin-bottom: 6rpx; }
+.contact-value { font-size: 26rpx; color: #333; }
+.copy-btn { font-size: 26rpx; color: #94b088; padding: 10rpx 20rpx; }

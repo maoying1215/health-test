@@ -72,7 +72,6 @@ Page({
     })
   },
 
-  // 加载今日打卡记录
   loadTodayRecords: function() {
     try {
       const records = wx.getStorageSync('dailyCheckRecords') || {}

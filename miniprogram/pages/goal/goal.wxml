@@ -1,0 +1,80 @@
+<view class="container">
+  <view class="card">
+    <text class="title">健康目标</text>
+    <text class="subtitle">设定目标，持续进步</text>
+  </view>
+
+  <!-- 添加目标 -->
+  <view class="add-section">
+    <button class="btn-primary add-btn" bindtap="showAddModal">+ 添加目标</button>
+  </view>
+
+  <!-- 目标列表 -->
+  <view wx:if="{{goalList.length > 0}}">
+    <view class="card goal-card" wx:for="{{goalList}}" wx:key="id">
+      <view class="goal-header">
+        <view class="goal-title-row">
+          <text class="goal-icon">{{item.icon}}</text>
+          <text class="goal-name">{{item.title}}</text>
+          <text class="goal-status {{item.completed ? 'status-done' : 'status-ing'}}">{{item.completed ? '已完成' : '进行中'}}</text>
+        </view>
+        <text class="delete-btn" bindtap="deleteGoal" data-id="{{item.id}}">✕</text>
+      </view>
+      <text class="goal-desc">{{item.desc}}</text>
+      <view class="goal-progress-row">
+        <text class="progress-text">进度 {{item.current}}/{{item.target}} {{item.unit}}</text>
+        <text class="progress-pct">{{item.pct}}%</text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width:{{item.pct}}%"></view>
+      </view>
+      <view class="goal-actions">
+        <button class="btn-small" bindtap="updateProgress" data-id="{{item.id}}" data-delta="-1">-1</button>
+        <button class="btn-small btn-primary-small" bindtap="updateProgress" data-id="{{item.id}}" data-delta="1">+1</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:else>
+    <text class="empty-icon">🎯</text>
+    <text class="empty-text">还没有健康目标，快来设定吧！</text>
+  </view>
+
+  <!-- 推荐目标 -->
+  <view class="card">
+    <text class="title">推荐目标</text>
+    <view class="suggest-list">
+      <view class="suggest-item" wx:for="{{suggestedGoals}}" wx:key="id" bindtap="addSuggested" data-item="{{item}}">
+        <text class="suggest-icon">{{item.icon}}</text>
+        <view class="suggest-info">
+          <text class="suggest-title">{{item.title}}</text>
+          <text class="suggest-desc">{{item.desc}}</text>
+        </view>
+        <text class="suggest-add">+</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加目标弹窗 -->
+  <view class="modal-mask" wx:if="{{showModal}}" bindtap="hideModal">
+    <view class="modal-content" catchtap="stopProp">
+      <text class="modal-title">添加健康目标</text>
+      <view class="form-item">
+        <text class="form-label">目标名称</text>
+        <input class="form-input" placeholder="如：每天步行10000步" value="{{newGoal.title}}" bindinput="onTitleInput"/>
+      </view>
+      <view class="form-item">
+        <text class="form-label">目标数值</text>
+        <input class="form-input" type="number" placeholder="如：30（天）" value="{{newGoal.target}}" bindinput="onTargetInput"/>
+      </view>
+      <view class="form-item">
+        <text class="form-label">单位</text>
+        <input class="form-input" placeholder="如：天、次、分钟" value="{{newGoal.unit}}" bindinput="onUnitInput"/>
+      </view>
+      <view class="modal-btns">
+        <button class="btn-cancel" bindtap="hideModal">取消</button>
+        <button class="btn-confirm" bindtap="confirmAdd">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -75,10 +75,8 @@ Page({
     }
   },
 
-  // 检查并显示使用天数弹窗
   checkAndShowModal: function() {
     try {
-      // 先计算好数据，再一次性显示弹窗，避免闪屏
       const daysData = this.calculateUseDays()
       
       this.setData({
@@ -91,10 +89,8 @@ Page({
     }
   },
 
-  // 计算使用天数（返回数据而不是直接setData）
   calculateUseDays: function() {
     try {
-      // 从本地存储获取首次使用日期
       let firstUseDate = wx.getStorageSync('firstUseDate')
       
       if (!firstUseDate) {

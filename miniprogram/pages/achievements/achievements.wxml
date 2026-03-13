@@ -1,0 +1,51 @@
+<view class="container">
+  <!-- 总览 -->
+  <view class="card overview-card">
+    <text class="overview-title">成就徽章</text>
+    <view class="overview-stats">
+      <view class="ov-item">
+        <text class="ov-value">{{unlockedCount}}</text>
+        <text class="ov-label">已获得</text>
+      </view>
+      <view class="ov-divider"></view>
+      <view class="ov-item">
+        <text class="ov-value">{{totalCount}}</text>
+        <text class="ov-label">全部徽章</text>
+      </view>
+      <view class="ov-divider"></view>
+      <view class="ov-item">
+        <text class="ov-value">{{progressPct}}%</text>
+        <text class="ov-label">完成度</text>
+      </view>
+    </view>
+    <view class="ov-progress-bar">
+      <view class="ov-progress-fill" style="width:{{progressPct}}%"></view>
+    </view>
+  </view>
+
+  <!-- 徽章分类 -->
+  <view wx:for="{{categories}}" wx:key="name" class="card">
+    <text class="title">{{item.name}}</text>
+    <view class="badge-grid">
+      <view class="badge-item {{badge.unlocked ? '' : 'locked'}}" wx:for="{{item.badges}}" wx:key="id" wx:for-item="badge" bindtap="showBadgeDetail" data-badge="{{badge}}">
+        <text class="badge-icon">{{badge.unlocked ? badge.icon : '🔒'}}</text>
+        <text class="badge-name">{{badge.name}}</text>
+        <text class="badge-cond" wx:if="{{!badge.unlocked}}">{{badge.condition}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 徽章详情弹窗 -->
+  <view class="modal-mask" wx:if="{{showDetail}}" bindtap="hideDetail">
+    <view class="detail-card" catchtap="stopProp">
+      <text class="detail-icon">{{selectedBadge.icon}}</text>
+      <text class="detail-name">{{selectedBadge.name}}</text>
+      <text class="detail-desc">{{selectedBadge.desc}}</text>
+      <text class="detail-condition">获得条件：{{selectedBadge.condition}}</text>
+      <view class="detail-status {{selectedBadge.unlocked ? 'unlocked' : 'locked-status'}}">
+        {{selectedBadge.unlocked ? '✅ 已获得' : '🔒 未解锁'}}
+      </view>
+      <button class="btn-primary close-btn" bindtap="hideDetail">关闭</button>
+    </view>
+  </view>
+</view>

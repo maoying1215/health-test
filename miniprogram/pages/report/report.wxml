@@ -1,0 +1,62 @@
+<view class="container">
+  <!-- 报告头部 -->
+  <view class="card report-header">
+    <text class="report-title">健康报告</text>
+    <text class="report-date">{{reportDate}}</text>
+    <view class="score-circle">
+      <text class="score-value">{{healthScore}}</text>
+      <text class="score-label">健康评分</text>
+    </view>
+    <text class="score-desc">{{scoreDesc}}</text>
+  </view>
+
+  <!-- 维度分析 -->
+  <view class="card">
+    <text class="title">健康维度分析</text>
+    <view class="dimension-list">
+      <view class="dimension-item" wx:for="{{dimensions}}" wx:key="name">
+        <view class="dimension-header">
+          <text class="dimension-icon">{{item.icon}}</text>
+          <text class="dimension-name">{{item.name}}</text>
+          <text class="dimension-score">{{item.score}}分</text>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width:{{item.score}}%;background:{{item.color}}"></view>
+        </view>
+        <text class="dimension-comment">{{item.comment}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 近期数据趋势 -->
+  <view class="card">
+    <text class="title">近期记录</text>
+    <view wx:if="{{recentRecords.length > 0}}">
+      <view class="record-item" wx:for="{{recentRecords}}" wx:key="index">
+        <text class="record-date">{{item.date}}</text>
+        <view class="record-tags">
+          <text class="tag" wx:for="{{item.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="empty-tip">
+      <text class="empty-text">暂无健康数据记录</text>
+    </view>
+  </view>
+
+  <!-- 健康建议 -->
+  <view class="card">
+    <text class="title">健康建议</text>
+    <view class="advice-list">
+      <view class="advice-item" wx:for="{{adviceList}}" wx:key="index">
+        <text class="advice-bullet">{{item.icon}}</text>
+        <text class="advice-text">{{item.text}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分享按钮 -->
+  <view class="share-section">
+    <button class="btn-primary share-btn" bindtap="shareReport">分享报告</button>
+  </view>
+</view>

@@ -1,0 +1,199 @@
+.add-section {
+  padding: 20rpx;
+}
+
+.add-btn {
+  width: 100%;
+  background: #94b088;
+  color: white;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+}
+
+.reminder-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.reminder-item:last-child {
+  border-bottom: none;
+}
+
+.reminder-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.reminder-icon {
+  font-size: 44rpx;
+  margin-right: 20rpx;
+}
+
+.reminder-title {
+  font-size: 30rpx;
+  color: #333;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.reminder-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.reminder-right {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.delete-btn {
+  font-size: 36rpx;
+  margin-left: 16rpx;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 0;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.suggest-list {
+  margin-top: 10rpx;
+}
+
+.suggest-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.suggest-item:last-child {
+  border-bottom: none;
+}
+
+.suggest-icon {
+  font-size: 44rpx;
+  margin-right: 20rpx;
+}
+
+.suggest-info {
+  flex: 1;
+}
+
+.suggest-title {
+  font-size: 30rpx;
+  color: #333;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.suggest-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.suggest-add {
+  font-size: 44rpx;
+  color: #94b088;
+  font-weight: bold;
+}
+
+.modal-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: flex-end;
+  z-index: 100;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 30rpx 30rpx 0 0;
+  padding: 40rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #666;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.form-input {
+  border: 1rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.picker-view {
+  border: 1rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+}
+
+.btn-cancel {
+  flex: 1;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  color: #666;
+}
+
+.btn-confirm {
+  flex: 1;
+  background: #94b088;
+  color: white;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #999;
+  display: block;
+  margin-top: 8rpx;
+}

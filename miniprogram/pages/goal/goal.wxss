@@ -1,0 +1,129 @@
+.add-section { padding: 20rpx; }
+.add-btn { width: 100%; background: #94b088; color: white; border-radius: 50rpx; font-size: 30rpx; }
+.subtitle { font-size: 26rpx; color: #999; display: block; margin-top: 8rpx; }
+
+.goal-card { margin-bottom: 20rpx; }
+
+.goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12rpx;
+}
+
+.goal-title-row {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.goal-icon { font-size: 40rpx; margin-right: 12rpx; }
+.goal-name { font-size: 30rpx; font-weight: bold; color: #333; flex: 1; }
+
+.goal-status {
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.status-ing { background: #e8f5e4; color: #94b088; }
+.status-done { background: #e3f2fd; color: #4A90E2; }
+
+.delete-btn { font-size: 30rpx; color: #ccc; padding: 10rpx; }
+
+.goal-desc { font-size: 26rpx; color: #999; margin-bottom: 20rpx; display: block; }
+
+.goal-progress-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.progress-text { font-size: 26rpx; color: #666; }
+.progress-pct { font-size: 26rpx; color: #94b088; font-weight: bold; }
+
+.progress-bar {
+  height: 14rpx;
+  background: #f0f0f0;
+  border-radius: 7rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #94b088, #a0d6e4);
+  border-radius: 7rpx;
+  transition: width 0.3s;
+}
+
+.goal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20rpx;
+}
+
+.btn-small {
+  padding: 10rpx 30rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  border: 1rpx solid #e0e0e0;
+  color: #666;
+  min-width: 80rpx;
+}
+
+.btn-primary-small {
+  background: #94b088;
+  color: white;
+  border: none;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 0;
+}
+
+.empty-icon { font-size: 80rpx; margin-bottom: 20rpx; }
+.empty-text { font-size: 28rpx; color: #999; }
+
+.suggest-list { margin-top: 10rpx; }
+.suggest-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.suggest-item:last-child { border-bottom: none; }
+.suggest-icon { font-size: 44rpx; margin-right: 20rpx; }
+.suggest-info { flex: 1; }
+.suggest-title { font-size: 30rpx; color: #333; display: block; margin-bottom: 6rpx; }
+.suggest-desc { font-size: 24rpx; color: #999; }
+.suggest-add { font-size: 44rpx; color: #94b088; font-weight: bold; }
+
+.modal-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: flex-end;
+  z-index: 100;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 30rpx 30rpx 0 0;
+  padding: 40rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-title { font-size: 34rpx; font-weight: bold; color: #333; display: block; text-align: center; margin-bottom: 40rpx; }
+.form-item { margin-bottom: 30rpx; }
+.form-label { font-size: 28rpx; color: #666; display: block; margin-bottom: 12rpx; }
+.form-input { border: 1rpx solid #e0e0e0; border-radius: 12rpx; padding: 20rpx; font-size: 28rpx; width: 100%; box-sizing: border-box; }
+
+.modal-btns { display: flex; gap: 20rpx; margin-top: 40rpx; }
+.btn-cancel { flex: 1; border: 1rpx solid #e0e0e0; border-radius: 50rpx; font-size: 30rpx; color: #666; }
+.btn-confirm { flex: 1; background: #94b088; color: white; border-radius: 50rpx; font-size: 30rpx; }

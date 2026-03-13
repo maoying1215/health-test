@@ -1,0 +1,73 @@
+<view class="container">
+  <view class="card">
+    <text class="title">通知设置</text>
+    <text class="subtitle">管理您接收的通知类型</text>
+  </view>
+
+  <!-- 总开关 -->
+  <view class="card">
+    <view class="master-switch">
+      <view class="switch-left">
+        <text class="switch-icon">🔔</text>
+        <view class="switch-info">
+          <text class="switch-name">开启所有通知</text>
+          <text class="switch-desc">关闭后将不再接收任何通知</text>
+        </view>
+      </view>
+      <switch checked="{{masterEnabled}}" bindchange="toggleMaster" color="#94b088"/>
+    </view>
+  </view>
+
+  <!-- 分类通知 -->
+  <view class="card {{masterEnabled ? '' : 'disabled-card'}}">
+    <text class="section-title">健康提醒</text>
+    <view class="notify-list">
+      <view class="notify-item" wx:for="{{healthNotifications}}" wx:key="id">
+        <view class="notify-left">
+          <text class="notify-icon">{{item.icon}}</text>
+          <view class="notify-info">
+            <text class="notify-name">{{item.name}}</text>
+            <text class="notify-desc">{{item.desc}}</text>
+          </view>
+        </view>
+        <switch checked="{{item.enabled && masterEnabled}}" disabled="{{!masterEnabled}}" bindchange="toggleNotify" data-id="{{item.id}}" color="#94b088"/>
+      </view>
+    </view>
+  </view>
+
+  <view class="card {{masterEnabled ? '' : 'disabled-card'}}">
+    <text class="section-title">系统通知</text>
+    <view class="notify-list">
+      <view class="notify-item" wx:for="{{systemNotifications}}" wx:key="id">
+        <view class="notify-left">
+          <text class="notify-icon">{{item.icon}}</text>
+          <view class="notify-info">
+            <text class="notify-name">{{item.name}}</text>
+            <text class="notify-desc">{{item.desc}}</text>
+          </view>
+        </view>
+        <switch checked="{{item.enabled && masterEnabled}}" disabled="{{!masterEnabled}}" bindchange="toggleSystemNotify" data-id="{{item.id}}" color="#94b088"/>
+      </view>
+    </view>
+  </view>
+
+  <!-- 免打扰时段 -->
+  <view class="card">
+    <text class="section-title">免打扰时段</text>
+    <view class="quiet-section">
+      <view class="quiet-row">
+        <text class="quiet-label">开始时间</text>
+        <picker mode="time" value="{{quietStart}}" bindchange="onQuietStartChange">
+          <view class="time-picker">{{quietStart}}</view>
+        </picker>
+      </view>
+      <view class="quiet-row">
+        <text class="quiet-label">结束时间</text>
+        <picker mode="time" value="{{quietEnd}}" bindchange="onQuietEndChange">
+          <view class="time-picker">{{quietEnd}}</view>
+        </picker>
+      </view>
+      <text class="quiet-tip">在此时段内将不会推送任何通知</text>
+    </view>
+  </view>
+</view>

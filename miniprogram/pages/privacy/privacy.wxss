@@ -1,0 +1,56 @@
+.subtitle { font-size: 26rpx; color: #999; display: block; margin-top: 8rpx; }
+.section-title { font-size: 28rpx; color: #999; display: block; margin-bottom: 20rpx; }
+
+.setting-list { margin-top: 10rpx; }
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.setting-item:last-child { border-bottom: none; }
+
+.setting-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.setting-icon { font-size: 40rpx; margin-right: 20rpx; }
+
+.setting-info { flex: 1; }
+
+.setting-name { font-size: 30rpx; color: #333; display: block; margin-bottom: 6rpx; }
+.setting-desc { font-size: 24rpx; color: #999; }
+
+.action-list { margin-top: 10rpx; }
+
+.action-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.action-item:last-child { border-bottom: none; }
+
+.action-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.action-icon { font-size: 40rpx; margin-right: 20rpx; }
+
+.action-info { flex: 1; }
+
+.action-name { font-size: 30rpx; color: #333; display: block; margin-bottom: 6rpx; }
+.action-desc { font-size: 24rpx; color: #999; }
+
+.danger-text { color: #e74c3c; }
+
+.arrow { font-size: 48rpx; color: #ccc; }

@@ -1,0 +1,68 @@
+<view class="container">
+  <view class="card">
+    <text class="title">隐私设置</text>
+    <text class="subtitle">管理您的数据与隐私权限</text>
+  </view>
+
+  <view class="card">
+    <text class="section-title">数据权限</text>
+    <view class="setting-list">
+      <view class="setting-item" wx:for="{{permissions}}" wx:key="id">
+        <view class="setting-left">
+          <text class="setting-icon">{{item.icon}}</text>
+          <view class="setting-info">
+            <text class="setting-name">{{item.name}}</text>
+            <text class="setting-desc">{{item.desc}}</text>
+          </view>
+        </view>
+        <switch checked="{{item.enabled}}" bindchange="togglePermission" data-id="{{item.id}}" color="#94b088"/>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="section-title">数据管理</text>
+    <view class="action-list">
+      <view class="action-item" bindtap="exportData">
+        <view class="action-left">
+          <text class="action-icon">📤</text>
+          <view class="action-info">
+            <text class="action-name">导出健康数据</text>
+            <text class="action-desc">将您的数据导出为文件</text>
+          </view>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+      <view class="action-item danger" bindtap="clearData">
+        <view class="action-left">
+          <text class="action-icon">🗑️</text>
+          <view class="action-info">
+            <text class="action-name danger-text">清除健康数据</text>
+            <text class="action-desc">删除本地所有健康记录</text>
+          </view>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="section-title">协议与政策</text>
+    <view class="action-list">
+      <view class="action-item" bindtap="viewPolicy" data-type="privacy">
+        <view class="action-left">
+          <text class="action-icon">📄</text>
+          <text class="action-name">隐私政策</text>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+      <view class="action-item" bindtap="viewPolicy" data-type="terms">
+        <view class="action-left">
+          <text class="action-icon">📋</text>
+          <text class="action-name">用户协议</text>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -6,8 +6,6 @@ Page({
     assessmentCount: 0,
     dataRecordCount: 0,
     continuousDays: 0,
-    
-    // 显示更多用户信息
     userGender: '',
     userAge: '',
     userEducation: ''
@@ -47,13 +45,12 @@ Page({
   },
 
   calculateContinuousDays: function() {
-    // 简化版连续打卡天数计算
     const healthData = app.globalData.healthData
     if (healthData.length === 0) return 0
 
     const today = new Date()
     today.setHours(0, 0, 0, 0)
-    
+
     let continuousDays = 0
     let checkDate = new Date(today)
 
@@ -73,7 +70,6 @@ Page({
   },
 
   editProfile: function() {
-    // 跳转到个人信息编辑页面
     wx.navigateTo({
       url: '/pages/user-info/user-info'
     })
@@ -81,10 +77,22 @@ Page({
 
   goToPage: function(e) {
     const page = e.currentTarget.dataset.page
-    wx.showToast({
-      title: '功能开发中',
-      icon: 'none'
-    })
+    const pageMap = {
+      reminder:      '/pages/reminder/reminder',
+      report:        '/pages/report/report',
+      goal:          '/pages/goal/goal',
+      achievements:  '/pages/achievements/achievements',
+      privacy:       '/pages/privacy/privacy',
+      notification:  '/pages/notification/notification',
+      help:          '/pages/help/help',
+      about:         '/pages/about/about'
+    }
+    const url = pageMap[page]
+    if (url) {
+      wx.navigateTo({ url })
+    } else {
+      wx.showToast({ title: '页面不存在', icon: 'none' })
+    }
   },
 
   logout: function() {
@@ -97,7 +105,7 @@ Page({
           app.globalData.userInfo = null
           app.globalData.assessmentHistory = []
           app.globalData.healthData = []
-          
+
           wx.showToast({
             title: '已退出',
             icon: 'success'

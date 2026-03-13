@@ -747,7 +747,6 @@ Page({
     try {
       const saved = wx.getStorageSync('assessmentProgress')
       if (saved && saved.timestamp) {
-        // 检查是否在24小时内
         const hoursPassed = (Date.now() - saved.timestamp) / (1000 * 60 * 60)
         if (hoursPassed < 24) {
           wx.showModal({

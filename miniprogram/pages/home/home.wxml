@@ -74,10 +74,6 @@
         <text class="function-icon">✅</text>
         <text class="function-text">每日打卡</text>
       </view>
-      <view class="function-item" bindtap="goToHealthData">
-        <text class="function-icon">📊</text>
-        <text class="function-text">健康数据</text>
-      </view>
       <view class="function-item" bindtap="goToProfile">
         <text class="function-icon">⚙️</text>
         <text class="function-text">个人设置</text>

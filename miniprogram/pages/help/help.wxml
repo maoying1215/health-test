@@ -1,0 +1,73 @@
+<view class="container">
+  <view class="card">
+    <text class="title">帮助与反馈</text>
+    <text class="subtitle">遇到问题？我们来帮您解决</text>
+  </view>
+
+  <!-- 常见问题 -->
+  <view class="card">
+    <text class="section-title">常见问题</text>
+    <view class="faq-list">
+      <view class="faq-item" wx:for="{{faqList}}" wx:key="id" bindtap="toggleFaq" data-id="{{item.id}}">
+        <view class="faq-header">
+          <text class="faq-q">{{item.question}}</text>
+          <text class="faq-arrow {{item.expanded ? 'expanded' : ''}}">›</text>
+        </view>
+        <view class="faq-answer" wx:if="{{item.expanded}}">
+          <text class="faq-a">{{item.answer}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 意见反馈 -->
+  <view class="card">
+    <text class="section-title">意见反馈</text>
+    <view class="feedback-types">
+      <view
+        class="type-btn {{feedbackType === item.value ? 'type-active' : ''}}"
+        wx:for="{{feedbackTypes}}"
+        wx:key="value"
+        bindtap="selectType"
+        data-value="{{item.value}}"
+      >{{item.label}}</view>
+    </view>
+    <textarea
+      class="feedback-input"
+      placeholder="请描述您遇到的问题或建议（最多200字）"
+      maxlength="200"
+      value="{{feedbackText}}"
+      bindinput="onFeedbackInput"
+    />
+    <view class="word-count">
+      <text class="count-text">{{feedbackText.length}}/200</text>
+    </view>
+    <view class="contact-row">
+      <text class="contact-label">联系方式（选填）</text>
+      <input class="contact-input" placeholder="手机号或邮箱" value="{{contactInfo}}" bindinput="onContactInput"/>
+    </view>
+    <button class="btn-primary submit-btn" bindtap="submitFeedback">提交反馈</button>
+  </view>
+
+  <!-- 联系我们 -->
+  <view class="card">
+    <text class="section-title">联系我们</text>
+    <view class="contact-list">
+      <view class="contact-item" bindtap="copyEmail">
+        <text class="contact-icon">📧</text>
+        <view class="contact-info">
+          <text class="contact-name">客服邮箱</text>
+          <text class="contact-value">support@health-app.com</text>
+        </view>
+        <text class="copy-btn">复制</text>
+      </view>
+      <view class="contact-item">
+        <text class="contact-icon">⏰</text>
+        <view class="contact-info">
+          <text class="contact-name">服务时间</text>
+          <text class="contact-value">周一至周五 9:00 - 18:00</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

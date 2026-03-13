@@ -1,0 +1,108 @@
+.overview-card {
+  background: linear-gradient(135deg, #94b088, #a0d6e4);
+  color: white;
+  text-align: center;
+}
+
+.overview-title {
+  font-size: 32rpx;
+  color: white;
+  display: block;
+  margin-bottom: 30rpx;
+}
+
+.overview-stats {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.ov-item { display: flex; flex-direction: column; align-items: center; }
+.ov-value { font-size: 52rpx; font-weight: bold; color: white; }
+.ov-label { font-size: 24rpx; color: rgba(255,255,255,0.85); margin-top: 8rpx; }
+.ov-divider { width: 2rpx; height: 60rpx; background: rgba(255,255,255,0.3); }
+
+.ov-progress-bar {
+  height: 10rpx;
+  background: rgba(255,255,255,0.3);
+  border-radius: 5rpx;
+  overflow: hidden;
+}
+
+.ov-progress-fill {
+  height: 100%;
+  background: white;
+  border-radius: 5rpx;
+}
+
+.badge-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+  gap: 20rpx;
+}
+
+.badge-item {
+  width: calc(33.33% - 14rpx);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 10rpx;
+  border-radius: 16rpx;
+  background: #f8fff6;
+  border: 2rpx solid #e8f5e4;
+}
+
+.badge-item.locked {
+  background: #f8f8f8;
+  border-color: #f0f0f0;
+}
+
+.badge-icon { font-size: 56rpx; margin-bottom: 10rpx; }
+.badge-name { font-size: 24rpx; color: #333; text-align: center; margin-bottom: 6rpx; }
+.badge-cond { font-size: 20rpx; color: #bbb; text-align: center; }
+
+.locked .badge-name { color: #bbb; }
+
+.modal-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.detail-card {
+  background: white;
+  border-radius: 30rpx;
+  padding: 60rpx 40rpx;
+  width: 600rpx;
+  text-align: center;
+}
+
+.detail-icon { font-size: 100rpx; display: block; margin-bottom: 20rpx; }
+.detail-name { font-size: 36rpx; font-weight: bold; color: #333; display: block; margin-bottom: 16rpx; }
+.detail-desc { font-size: 28rpx; color: #666; display: block; margin-bottom: 20rpx; line-height: 1.6; }
+.detail-condition { font-size: 26rpx; color: #999; display: block; margin-bottom: 30rpx; }
+
+.detail-status {
+  font-size: 28rpx;
+  padding: 10rpx 30rpx;
+  border-radius: 30rpx;
+  display: inline-block;
+  margin-bottom: 30rpx;
+}
+
+.unlocked { background: #e8f5e4; color: #94b088; }
+.locked-status { background: #f5f5f5; color: #bbb; }
+
+.close-btn {
+  background: #94b088;
+  color: white;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  width: 100%;
+}

@@ -1,0 +1,76 @@
+<view class="container">
+  <view class="card">
+    <text class="title">健康提醒</text>
+    <text class="subtitle">管理您的日常健康提醒</text>
+  </view>
+
+  <!-- 添加提醒按钮 -->
+  <view class="add-section">
+    <button class="btn-primary add-btn" bindtap="showAddModal">+ 添加提醒</button>
+  </view>
+
+  <!-- 提醒列表 -->
+  <view class="card" wx:if="{{reminderList.length > 0}}">
+    <view class="reminder-item" wx:for="{{reminderList}}" wx:key="id">
+      <view class="reminder-left">
+        <text class="reminder-icon">{{item.icon}}</text>
+        <view class="reminder-info">
+          <text class="reminder-title">{{item.title}}</text>
+          <text class="reminder-time">{{item.time}} · {{item.repeatText}}</text>
+        </view>
+      </view>
+      <view class="reminder-right">
+        <switch checked="{{item.enabled}}" bindchange="toggleReminder" data-id="{{item.id}}" color="#94b088"/>
+        <text class="delete-btn" bindtap="deleteReminder" data-id="{{item.id}}">🗑</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text class="empty-icon">⏰</text>
+    <text class="empty-text">暂无提醒，点击上方按钮添加</text>
+  </view>
+
+  <!-- 推荐提醒 -->
+  <view class="card">
+    <text class="title">推荐提醒</text>
+    <view class="suggest-list">
+      <view class="suggest-item" wx:for="{{suggestedReminders}}" wx:key="id" bindtap="addSuggested" data-item="{{item}}">
+        <text class="suggest-icon">{{item.icon}}</text>
+        <view class="suggest-info">
+          <text class="suggest-title">{{item.title}}</text>
+          <text class="suggest-desc">{{item.desc}}</text>
+        </view>
+        <text class="suggest-add">+</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加提醒弹窗 -->
+  <view class="modal-mask" wx:if="{{showModal}}" bindtap="hideModal">
+    <view class="modal-content" catchtap="stopProp">
+      <text class="modal-title">添加提醒</text>
+      <view class="form-item">
+        <text class="form-label">提醒名称</text>
+        <input class="form-input" placeholder="请输入提醒名称" value="{{newReminder.title}}" bindinput="onTitleInput"/>
+      </view>
+      <view class="form-item">
+        <text class="form-label">提醒时间</text>
+        <picker mode="time" value="{{newReminder.time}}" bindchange="onTimeChange">
+          <view class="picker-view">{{newReminder.time || '请选择时间'}}</view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <text class="form-label">重复方式</text>
+        <picker mode="selector" range="{{repeatOptions}}" value="{{newReminder.repeatIndex}}" bindchange="onRepeatChange">
+          <view class="picker-view">{{repeatOptions[newReminder.repeatIndex]}}</view>
+        </picker>
+      </view>
+      <view class="modal-btns">
+        <button class="btn-cancel" bindtap="hideModal">取消</button>
+        <button class="btn-confirm" bindtap="confirmAdd">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
